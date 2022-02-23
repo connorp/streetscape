@@ -1,14 +1,19 @@
 ---
-title: ATP 2017 Overview
+title: Streetscape Project
+subtitle: CA Active Transportation Program
 author: Connor P. Jackson
 date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
 lang: en
 output:
+  ioslides_presentation:
+    transition: faster
+    df_print: !expr pander::pander
+    css: slides.css
   bookdown::html_document2:
     fig_caption: yes
-    number_sections: yes
+    number_sections: no
     highlight: textmate
-    toc: yes
+    toc: no
     toc_depth: 2
     toc_float: yes
     df_print: !expr pander::pander
@@ -39,30 +44,99 @@ library(pander)
 library(rmarkdown)
 library(grateful)
 library(data.table)
+library(lubridate)
 # read_chunk("FILENAMEHERE")
 options(knitr.kable.NA = '')
 panderOptions("digits", 3)
 panderOptions("table.split.cells", 15)
 panderOptions("table.split.table", 120)
+panderOptions("table.emphasize.rownames", FALSE)
 ```
 
-```{r citations, echo=FALSE}
-citerefs <- cite_packages(output = "citekeys", include.RStudio = TRUE)
-nocite_references(citerefs, citation_processor = 'pandoc')
-```
-
-```{r import-data}
+```{r import-data, include = FALSE}
 headers <- fread("/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/Streetscape/ATP 2017/headers.csv")
 headers <- headers[include == TRUE, header]
 proj <- fread("/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/Streetscape/ATP 2017/ATP2017_data.csv", 
               select = headers, check.names = TRUE)
 
 setnames(proj, gsub("form.0..", "", colnames(proj), fixed = TRUE))
+setnames(proj, gsub("\\.0\\.$", "", colnames(proj)))
+setnames(proj, gsub("^.._", "", colnames(proj)))
+proj <- proj[PROJ_TYPE %in% c("Combination (I/NI)", "Infrastructure (I)")]
+
 proj[, atp_year := 2017]
+proj[, CONST_END_DATE := dmy(CONST_END_DATE)]
+proj[, ID := paste(CT_DIST, IMP_AGCY_NAME, AGENCY_APP_NUM, sep = "-")]
 ```
 
-```{r}
-proj[, .N, keyby = .(A3_P)]
+## Active Transportation Program Overview
+
+- Goal: use ATP approval/denial for RD identification
+- ATP application forms are formulaic, so data can be easily extracted via Adobe
+- Application forms for funded projects are posted online.
+- Will need to request/CPRA unfunded applications
+- Beginning with 2017 round of funding to explore what exists
+
+## Machine-Readable Data
+
+- Applying agency information
+- Rough project location
+  - city, county, congressional district, census block group
+  - associated demographic data
+- Type of project (bike, walk, safe routes to school, trail)
+- Project stage actual/projected start and end dates, and costs
+  - Project Approval & Environmental Documentation
+  - Plans, Specifications, and Estimates
+  - Right of Way acquisition
+  - Construction
+- Safety information and pre-application use counts
+- Cost estimates, including ATP and non-ATP funds
+
+## Machine-Readable Data
+
+- Project component counts
+  - Feet of new bike lane (by type)
+  - Bike boxes, parking, bikeshare
+  - signal timing and configuration changes
+  - Feet of new/widened/rebuilt sidewalk
+  - Physical barriers/planters
+  - ADA enhancements
+  - New/enhanced crosswalks, bulbouts, mid-block refuge
+  - roundabouts
+  - lighting, benches, trashcans, trees
+  - Travel lane, turn pocket removals
+  - Multi-use trail type and length
+
+## Data still needed
+
+- Precise location Data! 
+  - Every project comes with maps, but no GIS or machine-readable spatial data
+  - Exploring other public data, and talking with program administrators. Otherwise, a task for some undergraduates? 
+- Project status and actual construction dates
+- Project scores - published, just need to be merged
+
+## Approved Project Components
+
+```{r bike-ped-counts, echo = FALSE}
+proj[, .N, by = .(bike_component=ST_BICYCLE_APPLIES, ped_component=ST_PED_APPLIES)]
 ```
+
+```{r SRTS, echo = FALSE}
+proj[, .N, by = .(SafeRoutesToSchool=ST_SRTS)]
+```
+
+## Approved Project Timelines
+
+```{r timeline, echo = FALSE}
+pander(proj[, .N, keyby = .(completion_year = year(CONST_END_DATE))], keys.as.row.names = FALSE)
+```
+
+## Left Hand Side Data
+
+- Safegraph data acquired! 
+- Traffic data more feasible than initially thought
+  - TomTom/ADCi (via Matt) ($)
+  - Streetlight (discounted or free)
+  - INRIX (potentially free from individual cities)
 
 
