@@ -44,7 +44,9 @@
 	- [ ] Explore location matching possibilities
 - [ ] Access transit on-time performance Data
 - [ ] Find air quality data
-	- [ ] Talk to Joe about potential data sources
+	- [X] Talk to Joe about potential data sources
+	- [ ] Read Fowlie, Rubin, and Walker 2019 on remote sensing data
+	- [ ] Find PurpleAir or vehicle-based air quality data
 - [ ] Access traffic data (Streetlight, TomTom)
 	- [X] Contact Streetlight about data access
 	- [ ] Contact TomTom about data access
