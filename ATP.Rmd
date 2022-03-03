@@ -54,9 +54,9 @@ panderOptions("table.emphasize.rownames", FALSE)
 ```
 
 ```{r import-data, include = FALSE}
-headers <- fread("/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/Streetscape/ATP 2017/headers.csv")
+headers <- fread("/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/Streetscape/ATP/headers.csv")
 headers <- headers[include == TRUE, header]
-proj <- fread("/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/Streetscape/ATP 2017/ATP2017_data.csv", 
+proj <- fread("/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/Streetscape/ATP/2017/ATP2017_data.csv", 
               select = headers, check.names = TRUE)
 
 setnames(proj, gsub("form.0..", "", colnames(proj), fixed = TRUE))

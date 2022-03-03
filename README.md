@@ -7,13 +7,21 @@
 
 ## To-Dos
 
-### Conceptual Questions to Answer
+### Sharpen the Research Question
+
+- [ ] Define the treatment
+- [ ] Define the outcome variables to use
+- [ ] Characterize its economic significance. Why is this more than just a policy evaluation?
+	- Amenity valuation/capitalization into housing prices
+	- Distributional analysis: who benefits and who loses
+	- Welfare analysis? Do I have enough data for that?
+
+### Develop the Analytic Strategy
 
 - [ ] Define the unit of analysis
-- [ ] Define the treatment
 - [ ] Understand the available power
 	- Is there enough useable projects in the ATP program?
-	- Are there other programs that can be used or combined for the same set of projects?
+	- Are there [other programs](https://docs.google.com/spreadsheets/d/1TxLO-5f8JYMfYBA36-aJs-UnfBgDcFMiNtmClkDimLU/edit#gid=0) that can be used or combined for the same set of projects?
 - [ ] define the econometric approach
 
 ### Data Work
@@ -44,13 +52,13 @@
 	- [ ] Explore location matching possibilities
 - [ ] Access transit on-time performance Data
 - [ ] Find air quality data
-	- [ ] Talk to Joe about potential data sources
+	- [X] Talk to Joe about potential data sources
 - [ ] Access traffic data (Streetlight, TomTom)
 	- [X] Contact Streetlight about data access
 	- [ ] Contact TomTom about data access
 	- [ ] Identify cities/DOTs who might provide access to INRIX data
 
-### Other Funding Programs
+### [Other Funding Programs](https://docs.google.com/spreadsheets/d/1TxLO-5f8JYMfYBA36-aJs-UnfBgDcFMiNtmClkDimLU/edit#gid=0)
 
 - [ ] Identify Metropolitan Planning Organizations in California with similar funding mechanisms
 - [ ] Look for other states with similar funding mechanisms
@@ -63,3 +71,4 @@
 - [ ] Use a single project as a presentation case study
 - [ ] Literature review
 - [ ] Summarize the scope of funding programs that can be used for identification, power calculations
+- [ ] Identify an external committee member

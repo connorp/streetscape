@@ -1,0 +1,12 @@
+# Research Question
+
+## Motivation and Question
+
+In recent years, local governments have been spending substantial amounts of funding on changes to street infrastructure. These projects, which use physical changes to the streetscape to reallocate space between uses and modify user behavior, are often justified with improvements to safety, health, comfort, efficiency, mode share, and emissions in mind. However, streetscape changes like these are often met with fierce opposition, citing impacts to vehicle throughput, increased travel times, decreases in parking, reduced access for business deliveries and customers. While some existing observational and engineering research has explored the traffic outcomes of these infrastructure changes, little causally identified economic research exists to explore the broader social impacts or perform welfare analyses. The objective of this project is to leverage a discontinuity in funding awards to analyze the impacts of [streetscape changes] on [traffic, mode share, traffic spillovers, safety, business foot traffic, and air quality].
+
+## Identification Strategy
+
+## Econometric Approach
+
+
+# Power Analysis
