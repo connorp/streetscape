@@ -6,7 +6,15 @@ In recent years, local governments have been spending substantial amounts of fun
 
 ## Identification Strategy
 
+This project uses a regression discontinuity design for identification. Many of these projects receive funding from regional, state, or federal grants, such as California's Active Transportation Program. This program, and others like it, evaluates submitted projects using a fixed rubric, and assigns each program a numerical score. These funding programs are unable to fund every project that applies, and so define a cutoff score based on the funding available. Projects above the threshold receive funding, while those below the threshold do not receive funding. The funding threshold is not known by the applicants or the evaluators prior to the submission and ranking of the applications, eliminating the possibility of bunching on the running variable. 
+
+Receiving funding from any one particular grant program does not guarantee that the project will get built, and cities can proceed with the project using other funds, even if they are denied. Thus, this project will use a fuzzy-RD design, with the funding threshold instrumenting for project construction. In addition, application materials include substantial data on baseline conditions for each of the projects, so I will be able to check for pretrends. 
+
 ## Econometric Approach
 
 
 # Power Analysis
+
+I will perform some initial calculations with the outcome data I have on hand, in order to get some sense of the available power of my estimators. Once I have constructed a dataset of project locations and associated outcome variables, I will identify some placebo "post-treatment" time periods (without the construction having actually occurred) and estimate the treatment effect of this placebo. The standard error on this placebo estimate will give me some sense of what size effect would be detectable given my sample size. I can perform this analysis for each of the relevant outcome variables being considered. 
+
+
