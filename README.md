@@ -40,29 +40,26 @@
 	- [X] Download Safegraph data
 	- [ ] Identify structure and needed variables
 	- [ ] Match Safegraph data to project locations
-- [ ] Access Strava data
-	- [X] Contact Strava for data access
-	- [ ] Download/query Strava Data
-	- [ ] Identify structure and needed variables
-	- [ ] Match data to project locations
+- [ ] ~~Access Strava data~~
+	- [X] Contact Strava for data access: **Strava denied my data request**
 - [ ] Access TIMS/SWITRS crash data
 - [ ] Access hospital data
 	- [ ] Meet with Reed
 	- [ ] Download hospital Data
 	- [ ] Explore location matching possibilities
-- [ ] Access transit on-time performance Data
+- [ ] Access transit on-time performance data
 - [ ] Find air quality data
 	- [X] Talk to Joe about potential data sources
 	- [ ] Read Fowlie, Rubin, and Walker 2019 on remote sensing data
 	- [ ] Find PurpleAir or vehicle-based air quality data
-- [ ] Access traffic data (Streetlight, TomTom)
+- [ ] Access traffic data
 	- [X] Contact Streetlight about data access
-	- [ ] Contact TomTom about data access
-	- [ ] Identify cities/DOTs who might provide access to INRIX data
+	- [ ] Sign data access agreement with Streetlight
+	- [ ] Download and explore traffic data
 
 ### [Other Funding Programs](https://docs.google.com/spreadsheets/d/1TxLO-5f8JYMfYBA36-aJs-UnfBgDcFMiNtmClkDimLU/edit#gid=0)
 
-- [ ] Identify Metropolitan Planning Organizations in California with similar funding mechanisms
+- [X] Identify Metropolitan Planning Organizations in California with similar funding mechanisms
 - [ ] Look for other states with similar funding mechanisms
 - [ ] Look for federal funding programs with similar RD structure
 
@@ -74,3 +71,13 @@
 - [ ] Literature review
 - [ ] Summarize the scope of funding programs that can be used for identification, power calculations
 - [ ] Identify an external committee member
+
+- [ ] ERE Slides
+	- Big Picture motivation: Incidence and distributional impacts of these projects
+	- Specific research question: Impact of [streetscape changes] on [outcomes]
+	- Example project
+		- Overview of information
+		- Maps
+		- Timeline
+	- Description of existing data
+	- Preliminary discussion of power, if possible
