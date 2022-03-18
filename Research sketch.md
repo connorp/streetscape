@@ -1,3 +1,19 @@
+---
+title: Equity of Streetscape Changes
+author: Connor P. Jackson
+date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
+lang: en
+output: word_document
+linkcolor: blue
+urlcolor: blue
+link-citations: true
+reference-section-title: References
+biblio-title: References
+biblio-style: authoryear
+biblatexoptions: "isbn=false, url=false"
+pdfa: 2a
+---
+
 # Research Question
 
 ## Big Picture
