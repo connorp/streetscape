@@ -1,7 +1,6 @@
 ---
 title: Equity of Streetscape Changes
 author: Connor P. Jackson
-date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
 lang: en
 output: word_document
 linkcolor: blue
