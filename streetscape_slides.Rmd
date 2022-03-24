@@ -1,0 +1,49 @@
+---
+title: Streetscape Changes and Infrastructure Equity
+author: Connor P. Jackson
+date: April 6, 2022
+lang: en
+output:
+  ioslides_presentation:
+    transition: faster
+    df_print: !expr pander::pander
+    css: slides.css
+linestretch: 1.1
+linkcolor: blue
+urlcolor: blue
+link-citations: true
+bibliography: "/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/CitationManagement/library.bib"
+---
+
+# Motivation and Question
+
+## Motivation
+
+
+
+## Research Question
+
+
+
+# Example Project
+
+## Project Overview
+
+
+## Map of Project Area
+
+
+## Project Timeline
+
+
+# Description of Data
+
+## Project Data
+
+
+
+## Outcome Data
+
+
+
+
