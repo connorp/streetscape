@@ -49,7 +49,24 @@ panderOptions("table.split.table", 120)
 ```
 
 ```{r}
-sg <- fread("/Volumes/GoogleDrive-114494246111519559339/My Drive/Streetscape/Safegraph CA Data thru 2022-02-07/CA-part1.csv.gz")
-panel <- fread("/Volumes/GoogleDrive-114494246111519559339/My Drive/Streetscape/Safegraph CA Data thru 2022-02-07/safegraph_home_panel_summary-part1.csv.gz")
+
+cols_to_use <- c("date_range_start", "date_range_end", "placekey", "sg_c__parent_placekey", 
+                 "sg_c__location_name", "sg_c__top_category", "sg_c__sub_category", 
+                 "sg_c__naics_code", "sg_c__latitude", "sg_c__longitude", "sg_c__street_address",
+                 "sg_c__city", "sg_c__region", "sg_c__postal_code", "sg_c__opened_on", 
+                 "sg_c__closed_on", "sg_wp__raw_visit_counts", "sg_wp__raw_visitor_counts", 
+                 "sg_wp__poi_cbg", "sg_wp__visitor_home_cbgs", "sg_wp__visitor_home_aggregation",
+                 "sg_wp__visitor_daytime_cbgs", "sg_wp__distance_from_home", "sg_wp__median_dwell",
+                 "sg_wp__bucketed_dwell_times", "sg_wp__normalized_visits_by_state_scaling", 
+                 "sg_wp__normalized_visits_by_total_visits", "sg_wp__normalized_visits_by_total_visitors")
+
+sg <- fread("/Volumes/GoogleDrive-114494246111519559339/My Drive/Streetscape/Safegraph CA Data thru 2022-02-07/CA-part1.csv.gz",
+            na.strings = c("", "{}"), select = cols_to_use)
+# panel <- fread("/Volumes/GoogleDrive-114494246111519559339/My Drive/Streetscape/Safegraph CA Data thru 2022-02-07/safegraph_home_panel_summary-part1.csv.gz")
+# norm <- fread("/Volumes/GoogleDrive-114494246111519559339/My Drive/Streetscape/Safegraph CA Data thru 2022-02-07/safegraph_normalization_stats.csv.gz")
+# visit <- fread("/Volumes/GoogleDrive-114494246111519559339/My Drive/Streetscape/Safegraph CA Data thru 2022-02-07/safegraph_visit_panel_summary.csv.gz")
+
+# use normalized_visits_by_state_scaling -> "If we expect that someone in the SafeGraph sample is equally likely to visit a given POI as another random person in the population, then normalized_visits_by_state_scaling represents how many people (not just how many SafeGraph users) visited a given location"
+
 ```
 
