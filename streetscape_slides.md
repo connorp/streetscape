@@ -12,7 +12,6 @@ linestretch: 1.1
 linkcolor: blue
 urlcolor: blue
 link-citations: true
-bibliography: "/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/CitationManagement/library.bib"
 ---
 
 # Motivation and Question
@@ -27,15 +26,22 @@ Need to understand the benefits, the costs, and who bears each
 
 ## Research Question
 
-1. What are the impacts of adding a bike lane, removing a traffic lane, or removing on-street parking on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities?
-2. What are the magnitude and extent of spillovers from these projects on adjacent areas?
+1. What are the impacts of adding a bike lane, removing a traffic lane, or
+   removing on-street parking on traffic throughput and speeds, visitation to
+   adjacent businesses, crashes, and fatalities? 
+2. What are the magnitude and extent of spillovers from these projects on 
+   adjacent areas?
 3. [Is there heterogeneity in who is impacted?]{.lighter}
 
 # Example Project: Oakland, 14th Street
 
 ## Project Overview
 
->The project includes a reduction in travel lanes from four (4) to two (2); addition of Class IV protected bicycle lanes separated from travel by curbs and parked cars for maximum protection; improved pedestrian facilities including refuges, marked crossings, retimed signals, storm drain rain gardens, and transit boarding islands. 
+>The project includes a reduction in travel lanes from four (4) to two (2);
+>addition of Class IV protected bicycle lanes separated from travel by curbs and
+>parked cars for maximum protection; improved pedestrian facilities including
+>refuges, marked crossings, retimed signals, storm drain rain gardens, and
+>transit boarding islands. 
 
 ## Map of Project Area
 
