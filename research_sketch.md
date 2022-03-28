@@ -5,12 +5,8 @@ lang: en
 output: word_document
 linkcolor: blue
 urlcolor: blue
-link-citations: true
-reference-section-title: References
-biblio-title: References
-biblio-style: authoryear
-biblatexoptions: "isbn=false, url=false"
-pdfa: 2a
+abstract: |
+	Reconfiguring street infrastucture is rarely a Pareto-improving change, 
 ---
 
 # Research Question

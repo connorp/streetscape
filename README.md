@@ -38,13 +38,13 @@
 
 - [ ] Access Safegraph Data
 	- [X] Download Safegraph data
-	- [ ] Identify structure and needed variables
+	- [X] Identify structure and needed variables
 	- [ ] Match Safegraph data to project locations
 - [ ] ~~Access Strava data~~
 	- [X] Contact Strava for data access: **Strava denied my data request**
 - [ ] Access TIMS/SWITRS crash data
 - [ ] Access hospital data
-	- [ ] Meet with Reed
+	- [X] Meet with Reed
 	- [ ] Download hospital Data
 	- [ ] Explore location matching possibilities
 - [ ] Access transit on-time performance data
@@ -65,9 +65,9 @@
 
 ### Building Towards ERE/Orals
 
-- [ ] Summarize causal question(s)
+- [X] Summarize causal question(s)
 - [ ] Develop summary tables for infrastructure projects and outcome data
-- [ ] Use a single project as a presentation case study
+- [X] Use a single project as a presentation case study
 - [ ] Literature review
 - [ ] Summarize the scope of funding programs that can be used for identification, power calculations
 - [ ] Identify an external committee member

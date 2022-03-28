@@ -19,11 +19,17 @@ bibliography: "/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/Cita
 
 ## Motivation
 
+History: Interstate Highways, Urban Renewal
 
+Today: Bike lanes as Harbinger of Displacement, Gentrification
+
+Need to understand the benefits, the costs, and who bears each
 
 ## Research Question
 
-
+1. What are the impacts of adding a bike lane, removing a traffic lane, or removing on-street parking on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities?
+2. What are the magnitude and extent of spillovers from these projects on adjacent areas?
+3. [Is there heterogeneity in who is impacted?]{.lighter}
 
 # Example Project
 
@@ -35,6 +41,10 @@ bibliography: "/Users/connor/cpjackson@berkeley.edu - Google Drive/My Drive/Cita
 
 ## Project Timeline
 
+- Project Approval & Environmental Documentation: January 2016–December 2017
+- Plans, Specifications, and Estimates: August 2019–November 2020
+- Right of Way acquisition: August 2019–November 2020
+- Construction: January 2021–July 2022
 
 # Description of Data
 
