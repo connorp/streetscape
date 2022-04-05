@@ -30,3 +30,5 @@ vignettes/*.pdf
 grateful-refs.bib
 ATP.html
 *.docx
+*.pptx
+slide_images/*

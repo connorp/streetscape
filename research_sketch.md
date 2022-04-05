@@ -1,12 +1,12 @@
 ---
-title: Equity of Streetscape Changes
+title: Streetscape Changes and Infrastructure Equity
 author: Connor P. Jackson
 lang: en
 output: word_document
 linkcolor: blue
 urlcolor: blue
 abstract: |
-	Reconfiguring street infrastucture is rarely a Pareto-improving change, 
+	Streetscape design is an important determinant of the spatial equilibrium in urban areas. Projects that reallocate street space between users create winners and losers, and understanding the impacts of these projects, who bears the costs and benefits, and how they lead to spatial resorting is an important policy question as cities pursue these projects. This project uses a discontinuity in funding awards from the California Active Transportation Program to provide quasi-random variation in the installation of bike lanes, and the removal of vehicle travel lanes and on-street parking. Using this variation, I will estimate the impacts of these treatments on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities. 
 ---
 
 # Research Question
