@@ -19,6 +19,8 @@ link-citations: true
 
 ## Motivation: Spatial Equilibrium and the Urban Environment
 
+![slide_images/bikelane.jpg](Three bicyclists enjoying a new parking protected bike lane on Telegraph Avenue)
+
 Source: [Bike East Bay](https://catsip.berkeley.edu/safety-stories/stories-field/daves-safety-story-lessons-oakland)
 
 ::: notes
@@ -29,7 +31,9 @@ But in existing urbanized areas, these changes can only be made by reallocating 
 
 ## Historical Context
 
-<!-- History: Interstate Highways, Urban Renewal -->
+![slide_images/oakland1946.jpg](Aerial Photo of Oakland in 1946, showing existing neighborhoods)
+
+![slide_images/oakland2014.jpg](Aerial Photo of Oakland in 2014, showing Interstates 980 and 880 that displaced residential neighborhoods)
 
 Source: [University of Oklahoma Institute for Quality Communities](http://iqc.ou.edu/2015/02/10/60yrswest/)
 
@@ -47,11 +51,8 @@ Of course, there's a lot that goes on between pouring concrete and spatial sorti
 
 ## Research Question
 
-1. What are the impacts of adding a bike lane, removing a traffic lane, or
-   removing on-street parking on traffic throughput and speeds, visitation to
-   adjacent businesses, crashes, and fatalities? 
-2. What are the magnitude and spatial extent of spillovers from these projects
-on adjacent areas?
+1. What are the impacts of adding a bike lane, removing a traffic lane, or removing on-street parking on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities? 
+2. What are the magnitude and spatial extent of spillovers from these projects on adjacent areas?
 
 Identification: RD using state funding awards at budget threshold
 
@@ -70,7 +71,7 @@ These streetscape modification projects are very heterogeneous, and are tailored
 - Rank orders projects by score
 - Awards full funding to projects until program funding is exhausted
 
-900+ Projects Funded, ~$220m total annual budget, 5 years of funding rounds
+900+ Projects Funded — ~$220m total annual budget — 5 funding rounds awarded
 
 ::: notes
 In general, these projects are designed and implemented by localities, but often receive state funding. One such funding program in California that I will be using is the Active Transportation Program. 
@@ -96,7 +97,11 @@ In general, these projects are designed and implemented by localities, but often
 
 ## Map of Project Area
 
-<!-- Superimpose on map of Oakland from beginning? -->
+![slide_images/14th st map.pdf](14th Street Bike lane project map, from Interstate 980 to Oak Street)
+
+## Project Rendering
+
+![slide_images/![slide_images/]()](14th Street Bike lane project rendering, intersection with Lakeside Drive/Oak Street, showing parking protected bike lanes, a protected intersection, and widened sidewalks)
 
 ## Project Timeline
 
