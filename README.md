@@ -2,7 +2,6 @@
 
 ## Milestones
 
-- April 6: ERE Presentation
 - May 15: orals scheduling deadline
 
 ## To-Dos
@@ -10,15 +9,15 @@
 ### Sharpen the Research Question
 
 - [ ] Define the treatment
-- [ ] Define the outcome variables to use
-- [ ] Characterize its economic significance. Why is this more than just a policy evaluation?
+- [X] Define the outcome variables to use
+- [X] Characterize its economic significance. Why is this more than just a policy evaluation?
+	- _spatial equilibrium_
 	- Amenity valuation/capitalization into housing prices
 	- Distributional analysis: who benefits and who loses
-	- Welfare analysis? Do I have enough data for that?
 
 ### Develop the Analytic Strategy
 
-- [ ] Define the unit of analysis
+- [X] Define the unit of analysis
 - [ ] Understand the available power
 	- Is there enough useable projects in the ATP program?
 	- Are there [other programs](https://docs.google.com/spreadsheets/d/1TxLO-5f8JYMfYBA36-aJs-UnfBgDcFMiNtmClkDimLU/edit#gid=0) that can be used or combined for the same set of projects?
@@ -43,8 +42,11 @@
 - [ ] ~~Access Strava data~~
 	- [X] Contact Strava for data access: **Strava denied my data request**
 - [ ] Access TIMS/SWITRS crash data
+- [ ] Access traffic data
+	- [X] Contact Streetlight about data access
+	- [ ] Sign data access agreement with Streetlight
+	- [ ] Download and explore traffic data
 - [ ] Access hospital data
-	- [X] Meet with Reed
 	- [ ] Download hospital Data
 	- [ ] Explore location matching possibilities
 - [ ] Access transit on-time performance data
@@ -52,16 +54,12 @@
 	- [X] Talk to Joe about potential data sources
 	- [ ] Read Fowlie, Rubin, and Walker 2019 on remote sensing data
 	- [ ] Find PurpleAir or vehicle-based air quality data
-- [ ] Access traffic data
-	- [X] Contact Streetlight about data access
-	- [ ] Sign data access agreement with Streetlight
-	- [ ] Download and explore traffic data
 
 ### [Other Funding Programs](https://docs.google.com/spreadsheets/d/1TxLO-5f8JYMfYBA36-aJs-UnfBgDcFMiNtmClkDimLU/edit#gid=0)
 
 - [X] Identify Metropolitan Planning Organizations in California with similar funding mechanisms
-- [ ] Look for other states with similar funding mechanisms
-- [ ] Look for federal funding programs with similar RD structure
+- [X] Look for other states with similar funding mechanisms
+- [X] Look for federal funding programs with similar RD structure
 
 ### Building Towards ERE/Orals
 
@@ -69,10 +67,10 @@
 - [ ] Develop summary tables for infrastructure projects and outcome data
 - [X] Use a single project as a presentation case study
 - [ ] Literature review
-- [ ] Summarize the scope of funding programs that can be used for identification, power calculations
+- [X] Summarize the scope of funding programs that can be used for identification, power calculations
 - [ ] Identify an external committee member
 
-- [ ] ERE Slides
+- [X] ERE Slides
 	- Big Picture motivation: Incidence and distributional impacts of these projects
 	- Specific research question: Impact of [streetscape changes] on [outcomes]
 	- Example project
