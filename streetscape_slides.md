@@ -19,7 +19,7 @@ link-citations: true
 
 ## Motivation: Spatial Equilibrium and the Urban Environment
 
-![slide_images/bikelane.jpg](Three bicyclists enjoying a new parking protected bike lane on Telegraph Avenue)
+<!-- ![Three bicyclists enjoying a new parking protected bike lane on Telegraph Avenue](slide_images/bikelane.jpg) -->
 
 Source: [Bike East Bay](https://catsip.berkeley.edu/safety-stories/stories-field/daves-safety-story-lessons-oakland)
 
@@ -31,9 +31,9 @@ But in existing urbanized areas, these changes can only be made by reallocating 
 
 ## Historical Context
 
-![slide_images/oakland1946.jpg](Aerial Photo of Oakland in 1946, showing existing neighborhoods)
+<!-- ![Aerial Photo of Oakland in 1946, showing existing neighborhoods](slide_images/oakland1946.jpg) -->
 
-![slide_images/oakland2014.jpg](Aerial Photo of Oakland in 2014, showing Interstates 980 and 880 that displaced residential neighborhoods)
+<!-- ![Aerial Photo of Oakland in 2014, showing Interstates 980 and 880 that displaced residential neighborhoods](slide_images/oakland2014.jpg) -->
 
 Source: [University of Oklahoma Institute for Quality Communities](http://iqc.ou.edu/2015/02/10/60yrswest/)
 
@@ -58,11 +58,6 @@ Identification: RD using state funding awards at budget threshold
 
 # Infrastructure Projects and Data
 
-::: notes
-I want to spend some time now telling you a bit more about what these projects look like and how they are funded, which is the root of my identification strategy. 
-
-These streetscape modification projects are very heterogeneous, and are tailored to each area. They can contain a lot of different components, but I am going to focus on just a few of them. I may shift this focus as I get more data on more projects, but to start with, I am focusing on three common project attributes: the installation of a class 2 or class 4 bike lane, the removal of a car travel lane, or the removal of on-street parking. 
-:::
 
 ## CA Active Transportation Program
 
@@ -73,7 +68,14 @@ These streetscape modification projects are very heterogeneous, and are tailored
 
 900+ Projects Funded — ~$220m total annual budget — 5 funding rounds awarded
 
+
 ::: notes
+I want to spend some time now telling you a bit more about what these projects look like and how they are funded, which is the root of my identification strategy. 
+
+These streetscape modification projects are very heterogeneous, and are tailored to each area. They can contain a lot of different components, but I am going to focus on just a few of them. I may shift this focus as I get more data on more projects, but to start with, I am focusing on three common project attributes: the installation of a class 2 or class 4 bike lane, the removal of a car travel lane, or the removal of on-street parking. 
+
+- - - -
+
 In general, these projects are designed and implemented by localities, but often receive state funding. One such funding program in California that I will be using is the Active Transportation Program. 
 :::
 
@@ -97,11 +99,11 @@ In general, these projects are designed and implemented by localities, but often
 
 ## Map of Project Area
 
-![slide_images/14th st map.pdf](14th Street Bike lane project map, from Interstate 980 to Oak Street)
+<!-- ![14th Street Bike lane project map, from Interstate 980 to Oak Street](slide_images/14th st map.pdf) -->
 
 ## Project Rendering
 
-![slide_images/![slide_images/]()](14th Street Bike lane project rendering, intersection with Lakeside Drive/Oak Street, showing parking protected bike lanes, a protected intersection, and widened sidewalks)
+<!-- ![14th Street Bike lane project rendering, intersection with Lakeside Drive/Oak Street, showing parking protected bike lanes, a protected intersection, and widened sidewalks](slide_images/14th_rendering.pdf) -->
 
 ## Project Timeline
 
@@ -112,15 +114,16 @@ In general, these projects are designed and implemented by localities, but often
 
 # Research Plan
 
-::: notes
-So that's what a typical project looks like. Let's now turn to my outcome variables of interest and the identification strategy. 
-:::
-
 ## Outcome Data
 
 - Visitor counts to points of interest (Safegraph)
 - Traffic volumes and speeds (Streetlight)
 - Crashes and Fatalities (SWITRS)
+
+
+::: notes
+So that's what a typical project looks like. Let's now turn to my outcome variables of interest and the identification strategy. 
+:::
 
 ## Identification Strategy
 
