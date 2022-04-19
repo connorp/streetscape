@@ -40,12 +40,13 @@ Receiving funding from any one particular grant program does not guarantee that 
 
 ## Streetscape Projects Description
 
-- purpose
-- types
-- justification
-- funding
+In this project, I focus specifically on streets, as distinct from roads or highways. Streets are not just spaces or infrastructure used for transportation and moved through, but are also an important part of a destination itself. The layout and configuration of a street have material impacts on the experience and amenities of a place beyond simply the speed and ease with which travelers can move through it. Streets are complex places, with many attributes that all come together to influence the impact they have on users and occupants. From the number of travel lanes and the lane widths to the state of the sidewalks, to wheelchair cuts and accessibility features, street lighting, trees, benches, and bus stops, all these features come together to impact the experience of the street. For many years, the streets in the United States were designed primarily with single occupancy vehicles in mind. They were designed to move vehicles quickly through the space, and provide fast and easy access to parking. These design choices resulted in degraded experiences for those walking biking or taking public transit through the area. In recent years, cities have been rethinking how they design and allocate Street space and the street scape based on how they impact its users. These projects are designed with a variety of goals in mind, including improving the experience for local residents and business workers the move through the area on foot, reducing greenhouse gas emissions driven by private vehicle use, and improving health, safety, and mode share outcomes. These redesigns of street space come in many forms in or as varied as there are streets to be modified. They often change many attributes at once, but often involve several common features. These projects almost always involve re-allocating space that was previously dedicated to the movement of private vehicles (Such as travel lanes and on street parking) toward other users, by widening sidewalks and defining space dedicated to public transit and bicycles.
+
+Most transportation infrastructure funding in the US is dedicated to private vehicle traffic, primarily allocated by state governments (receiving block grants from the federal Department of Transportation). In contrast, funding for local streetscape improvements are left primarily to the locality (city or county), and is often cobbled together from multiple sources. These projects can be funded through a locality's general street maintenance and paving budget, by a developer providing funding for infrastructure improvements near their projects, or through competitive grant programs. In California in particular, city budgets are often insufficient to fully fund street maintenance and infrastructure improvements as a result of property tax restrictions imposed by Proposition 13 and successor measures. As a result, external funding sources are almost always brought to bear to fund these projects. 
 
 ## California Active Transportation Program
+
+
 
 - describe funding, evaluation, and awards process
 	- budget threshold not known ex ante
