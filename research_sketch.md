@@ -46,34 +46,32 @@ Most transportation infrastructure funding in the US is dedicated to private veh
 
 ## California Active Transportation Program
 
+The California Active Transportation Program (ATP) is a state funding program jointly administered by the CA Transportation Commission (CTC) and the Department of Transportation (Caltrans). Given the limited funds available to localities for streetscape changes (or even basic road maintenance), the ATP is the primary funding source for many of these types of projects built in the state. The ATP was originally created in 2013 (SB 99), with the goal of increasing active modes of transportation, like walking and biking. The program allocates both state and federal transportation dollars to support these projects, initially funded at approximately $123 million per year, and increased to $XX million annually in 2017, using increased revenues from the state gas tax. Funds have been awarded in five rounds as of 2021, with the sixth round open for applications in 2022. Each funding round includes a statewide component, a component for each of California's eighteen Metropolitan Planning Organizations (MPO), and a component for "small urban and rural" areas that do not fall into an MPO. 
 
+For each funding round, cities and counties submit detailed application packets describing the projects they wish to fund. These application packets include descriptions of the location of the project, the current street conditions, intended changes and attributes of the project, estimated budget and timeline, and whom the project is likely to benefit. Once applications have been submitted, independent evaluators assign scores to each project using a fixed, pre-announced rubric, in categories like whether the project is in a disadvantaged community, the potential to increase the number of users, the potential to reduce collisions, the level of public participation in the planning process, whether the project design is context-sensitive and transformative to the streetscape, and cost effectiveness. These scores are totaled, yielding an overall score for each project that can range from 0 to 100. 
 
-- describe funding, evaluation, and awards process
-	- budget threshold not known ex ante
-	- lots of projects close to threshold, per staff
-	- scores from 0–100, with high fidelity
-- 5 rounds of funding available, statewide, MPO, and small urban/rural categories
-- repeat submissions?
+<!-- Are projects scored by multiple people? Are there protections against conflicts of interest of evaluators? -->
+
+Because city budgets are often insufficient to fully fund these projects, the ATP receives far more applications from California localities than its budget can support. As a result, once applications have been submitted and scored, ATP staff define a threshold score that corresponds to the exhaustion of the budget for that round. Projects which receive a score above the budget threshold score receive the full requested allocation, while projects whose scores fall below the budget threshold score receive no funding from the ATP. The budget threshold is not known until after all the projects have been submitted. Therefore, while applicants are incentivized to structure their application in order to maximize their score overall, they do not have the information required to manipulate their score specifically around the threshold. Conversations with ATP staff indicate that many more projects are worthy of funding than actually receive funding, and that they believe there is little difference in the quality of projects above the threshold than those slightly below the threshold. 
+
+<!-- ATP budgets are set by the legislature, and are not set until after the applications have been submitted and scored, correct? -->
+
+# Data Overview
+
+## ATP Projects Data
+
+I (will) have data on the universe of streetscape projects which applied for ATP funding. In addition to the information included in the application packets—the location of the project, the current street conditions, intended changes and attributes of the project, and the estimated budget and timeline—the data include the score assigned to each project, and the current construction status of projects approved for funding, including the date of completion, if completed. The project component data is particularly rich, with detailed variables on many project attributes, such as the length of Class I, II, III, and IV bike lanes installed, length of vehicle travel lanes removed, number of intersections receiving traffic signal upgrades or retiming, number of street lights installed, number of new bike racks installed, and length of sidewalk installed, rebuilt, or widened. While the data include information about project locations, that information is provided as PDF maps, verbal descriptions, and a single latitude/longitude point. In order to match the projects to the outcome data, I generate shapefiles of polygons denoting the right of way in which the project is being built. These shapefiles are built manually using ArcGIS, using the PDF maps of project locations as well as verbal descriptions of their spatial extent.
+
+- sample sizes, discussion of common project attributes
+
+- discussion of Lee & Lemieux RD checklist paper
+- identifying/handling repeat submissions, always/never takers
 - selection issues? 
 	- some cities more capable of putting together good applications (holding project quality fixed)
 	- are cities that submit projects already gentrifying? 
 	- differential ability to predict where the funding threshold will be
 		- perhaps the consultants prepping these projects work for multiple cities? 
 		- do last year's awards predict this year's probability of success? 
-- projects that get built anyway
-	- Prop 13 context: this is the main way cities get these projects funded
-	- if cities do use other funds to build these, is there a crowding out of other amenities? 
-
-# Data Overview
-
-## ATP Projects Data
-
-- discussion of Lee & Lemieux RD checklist paper
-- sample sizes, discussion of common project attributes
-- construction status (data from Caltrans?)
-- location polygon construction
-	- radius around polygons for Safegraph matching (maybe this belongs in a data appendix instead)
-- identifying/handling repeat submissions, always/never takers
 
 ## Outcome Data
 
