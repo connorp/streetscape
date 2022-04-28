@@ -86,6 +86,12 @@ For traffic outcomes, I will use data from [Streetlight Data](https://www.street
 
 In addition, I will ultimately be exploring outcomes on housing, land values, and spatial sorting equilibria. I have yet to identify a specific dataset or datasets to use for these outcomes, but hope to be able to observe land values and real estate prices, commercial rental rates, and residential moves or displacement. 
 	
+## Power Analysis
+
+I will perform some initial calculations with the outcome data I have on hand, in order to get a sense of the available power of my estimators. To perform this analysis, I will need to select the relevant spatial subset of the outcome data that matches with the projects being considered. This data construction will give me at least an approximation of the sample I will have available to me. In order to do this preliminary analysis before I have generated the precise polygons of the project location, I will use the GPS coordinates of each project and simply match locations within a fixed radius of a project. That set of outcome data will be used for preliminary power analysis.
+
+Once I have constructed a dataset of project locations and associated outcome variables, I will specify some placebo "post-treatment" time periods (without the construction having actually occurred) and estimate the treatment effect of this placebo. The standard error on this placebo estimate will give me some sense of the effect size I would be able to detect given my sample. I can perform this analysis for each of the relevant outcome variables being considered.
+
 # Identification and Empirical Strategy
 
 - Fuzzy RD/Difference in discontinuities
@@ -96,19 +102,3 @@ In addition, I will ultimately be exploring outcomes on housing, land values, an
 	- incorporate sampling uncertainty from safegraph and streetlight? 
 - incorporation of multiple rounds/discontinuities? 
 - handling resubmissions
-
-# Next Steps
-
-## Identifying specific treatments
-
-- maybe just use any project as the treatment, and get into the heterogeneity later? 
-
-## Power Analysis
-
-I will perform some initial calculations with the outcome data I have on hand, in order to get a sense of the available power of my estimators. To perform this analysis, I will need to select the relevant spatial subset of the outcome data that matches with the projects being considered. This data construction will give me at least an approximation of the sample I will have available to me. In order to do this preliminary analysis before I have generated the precise polygons of the project location, I will use the GPS coordinates of each project and simply match locations within a fixed radius of a project. That set of outcome data will be used for preliminary power analysis.
-
-Once I have constructed a dataset of project locations and associated outcome variables, I will specify some placebo "post-treatment" time periods (without the construction having actually occurred) and estimate the treatment effect of this placebo. The standard error on this placebo estimate will give me some sense of the effect size I would be able to detect given my sample. I can perform this analysis for each of the relevant outcome variables being considered.
-
-## Spillovers
-
-## Land Values, Demographics, and Distributional Effects
