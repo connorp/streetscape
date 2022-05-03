@@ -5,8 +5,15 @@ lang: en
 output: word_document
 linkcolor: blue
 urlcolor: blue
+bibliography: "/Users/connor/Zotero/My_Library.json"
+link-citations: true
+reference-section-title: References
+biblio-title: References
+biblio-style: authoryear
+biblatexoptions: "isbn=false, url=false"
+pdfa: 2a
 abstract: |
-	Streetscape design is an important determinant of the spatial equilibrium in urban areas. Projects that reallocate street space between users create winners and losers, and understanding the impacts of these projects, who bears the costs and benefits, and how they lead to spatial resorting is an important policy question as cities pursue these projects. This project uses a discontinuity in funding awards from the California Active Transportation Program to provide quasi-random variation in the installation of bike lanes, and the removal of vehicle travel lanes and on-street parking. Using this variation, I will estimate the impacts of these treatments on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities. 
+  Streetscape design is an important determinant of the spatial equilibrium in urban areas. Projects that reallocate street space between users create winners and losers, and understanding the impacts of these projects, who bears the costs and benefits, and how they lead to spatial resorting is an important policy question as cities pursue these projects. This project uses a discontinuity in funding awards from the California Active Transportation Program to provide quasi-random variation in the installation of bike lanes, and the removal of vehicle travel lanes and on-street parking. Using this variation, I will estimate the impacts of these treatments on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities. 
 ---
 
 # Introduction
@@ -64,15 +71,17 @@ Because city budgets are often insufficient to fully fund these projects, the AT
 I (will) have data on the universe of streetscape projects which applied for ATP funding. In addition to the information included in the application packets—the location of the project, the current street conditions, intended changes and attributes of the project, and the estimated budget and timeline—the data include the score assigned to each project, and the current construction status of projects approved for funding, including the date of completion, if completed. The project component data is particularly rich, with detailed variables on many project attributes, such as the length of Class I, II, III, and IV bike lanes installed, length of vehicle travel lanes removed, number of intersections receiving traffic signal upgrades or retiming, number of street lights installed, number of new bike racks installed, and length of sidewalk installed, rebuilt, or widened. While the data include information about project locations, that information is provided as PDF maps, verbal descriptions, and a single latitude/longitude point. In order to match the projects to the outcome data, I generate shapefiles of polygons denoting the right of way in which the project is being built. These shapefiles are built manually using ArcGIS, using the PDF maps of project locations as well as verbal descriptions of their spatial extent.
 
 - sample sizes, discussion of common project attributes
-
-- discussion of Lee & Lemieux RD checklist paper
-- identifying/handling repeat submissions, always/never takers
 - selection issues? 
 	- some cities more capable of putting together good applications (holding project quality fixed)
 	- are cities that submit projects already gentrifying? 
 	- differential ability to predict where the funding threshold will be
 		- perhaps the consultants prepping these projects work for multiple cities? 
-		- do last year's awards predict this year's probability of success? 
+		- do last year's awards predict this year's probability of success?
+
+- test for baseline characteristics above and below the threshold
+- look for evaluation criteria that involve a level of judgment and are not just direct numerical rules based on the application
+	- implies that applicants do not have precise control over their scores
+- identifying/handling repeat submissions, always/never takers
 
 ## Outcome Data
 
@@ -85,7 +94,7 @@ To estimate the outcomes of these infrastructure projects, I will use several di
 For traffic outcomes, I will use data from [Streetlight Data](https://www.streetlightdata.com). Their data provide traffic speeds and throughput on specified road segments by day of month or hour of day, averaged monthly or annually. Traffic crash and fatality data will be from the Transportation Injury Mapping System (TIMS) [@TIMS2022], which sources its data from California's [Statewide Integrated Traffic Records System (SWITRS)](https://www.chp.ca.gov/programs-services/services-information/switrs-internet-statewide-integrated-traffic-records-system). SWITRS records all crashes reported to the California Highway Patrol, including those reported by local agencies and city police departments. It contains geocoded data mapping all reported crashes in California, including the location, time, involved vehicles, severity, and the number of people injured or killed. 
 
 In addition, I will ultimately be exploring outcomes on housing, land values, and spatial sorting equilibria. I have yet to identify a specific dataset or datasets to use for these outcomes, but hope to be able to observe land values and real estate prices, commercial rental rates, and residential moves or displacement. 
-	
+
 ## Power Analysis
 
 I will perform some initial calculations with the outcome data I have on hand, in order to get a sense of the available power of my estimators. To perform this analysis, I will need to select the relevant spatial subset of the outcome data that matches with the projects being considered. This data construction will give me at least an approximation of the sample I will have available to me. In order to do this preliminary analysis before I have generated the precise polygons of the project location, I will use the GPS coordinates of each project and simply match locations within a fixed radius of a project. That set of outcome data will be used for preliminary power analysis.
@@ -94,11 +103,32 @@ Once I have constructed a dataset of project locations and associated outcome va
 
 # Identification and Empirical Strategy
 
+- discussion of Lee & Lemieux RD checklist paper
+
 - Fuzzy RD/Difference in discontinuities
+	- imprecise control implies local randomization
+	- estimate: weighted LATE
+		- weighted average treatment effect for compliers
+		- weights are the ex-ante likelihood that an individual's realization of the running variable is close to the threshold
+		- required assumptions for fuzzy RD: monotonicity and excludability
 	- review Lee & Lemieux § 4.4
+	- choice of bandwidth (L&L § 4.1)
+		- cross validation approach
+		- tests of bias
+
+- graphical representation
+	- continuity of covariates on the running variable across the funding threshold (balance test)
+	- continuity of the density of the running variable (manipulation test)
+	- discontinuity of the outcome variable across the threshold
+		- plot binned individuals
+		- plot polynomial fit line
+	
 - Regression specification
+	- parametric or nonparametric? (L&L § 4.2.1)
+
 - standard errors/clustering
 	- what's the right level for clustering? 
 	- incorporate sampling uncertainty from safegraph and streetlight? 
+
 - incorporation of multiple rounds/discontinuities? 
-- handling resubmissions
+
