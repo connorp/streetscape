@@ -70,7 +70,8 @@ Because city budgets are often insufficient to fully fund these projects, the AT
 
 I (will) have data on the universe of streetscape projects which applied for ATP funding. In addition to the information included in the application packets—the location of the project, the current street conditions, intended changes and attributes of the project, and the estimated budget and timeline—the data include the score assigned to each project, and the current construction status of projects approved for funding, including the date of completion, if completed. The project component data is particularly rich, with detailed variables on many project attributes, such as the length of Class I, II, III, and IV bike lanes installed, length of vehicle travel lanes removed, number of intersections receiving traffic signal upgrades or retiming, number of street lights installed, number of new bike racks installed, and length of sidewalk installed, rebuilt, or widened. While the data include information about project locations, that information is provided as PDF maps, verbal descriptions, and a single latitude/longitude point. In order to match the projects to the outcome data, I generate shapefiles of polygons denoting the right of way in which the project is being built. These shapefiles are built manually using ArcGIS, using the PDF maps of project locations as well as verbal descriptions of their spatial extent.
 
-- sample sizes, discussion of common project attributes
+<!-- sample sizes, discussion of common project attributes -->
+
 - selection issues? 
 	- some cities more capable of putting together good applications (holding project quality fixed)
 	- are cities that submit projects already gentrifying? 
@@ -78,9 +79,10 @@ I (will) have data on the universe of streetscape projects which applied for ATP
 		- perhaps the consultants prepping these projects work for multiple cities? 
 		- do last year's awards predict this year's probability of success?
 
-- test for baseline characteristics above and below the threshold
-- look for evaluation criteria that involve a level of judgment and are not just direct numerical rules based on the application
+- look for evaluation criteria that involve a level of judgment and are not just direct 
+  numerical rules based on the application
 	- implies that applicants do not have precise control over their scores
+	
 - identifying/handling repeat submissions, always/never takers
 
 ## Outcome Data
@@ -112,21 +114,49 @@ Once I have constructed a dataset of project locations and associated outcome va
 		- weights are the ex-ante likelihood that an individual's realization of the running variable is close to the threshold
 		- required assumptions for fuzzy RD: monotonicity and excludability
 	- review Lee & Lemieux § 4.4
-	- choice of bandwidth (L&L § 4.1)
+	- choice of graphical bandwidth (L&L § 4.1)
 		- cross validation approach
 		- tests of bias
 
 - graphical representation
-	- continuity of covariates on the running variable across the funding threshold (balance test)
-	- continuity of the density of the running variable (manipulation test)
+	- continuity of covariates on the running variable across the funding threshold (balance test, L&L § 4.4.2)
+		- for a large number of covariates, use a Seemingly Unrelated Regression, use Chi-squared joint test
+	- continuity of the density of the running variable (manipulation test, L&L § 4.4.1)
+		- McCrary (2008) test
+	- probability of treatment on the running variable across the threshold
+		- show the magnitude in probability jump in a fuzzy setting
 	- discontinuity of the outcome variable across the threshold
 		- plot binned individuals
 		- plot polynomial fit line
 	
 - Regression specification
 	- parametric or nonparametric? (L&L § 4.2.1)
+		- robustness tests
+			- robust to polynomial specifications of the running variable (and covariates)
+			- robust to different window widths around the cutoff (local linear regression)
+		- separate regressions on either side of the cutoff point (or pooled regression with 
+		  full interactions with treatment)
+		- local linear regression: choice of estimation bandwidth (L&L § 4.3.1)
+			- Cross validation (leave one out) and rule of thumb approaches
+			- look at graphs first: outcomes with a great deal of curvature are more likely 
+			  to be sensitive to the choice of bandwidth due to larger bias from larger bandwidths
+		- local polynomial modeling (L&L § 4.3.2)
+			- choice of polynomial order
+				- compare to nonparametric bins used for graphical analysis: add higher order 
+				  terms until bin dummies are no longer jointly significant
+					- also acts as a test for the presence of discontinuities away from the cutoff
+				- can also use AIC to inform order choice
+				- be wary of overfitting: compensate with lower order polynomials with smaller bandwidths
+	- Fuzzy estimation (L&L § 4.3.3)
+		 - 2SLS estimation (use the same bandwidth/polynomial order for both stages)
+	     	- choose bandwidth/order for outcome equation, then use the same bandwidth for the first stage
+	- inclusion of covariates (L&L § 4.5)
+		- 
+		
+		
 
-- standard errors/clustering
+- standard errors/clustering (L&L § 4.3.4)
+	- 2SLS fuzzy standard errors
 	- what's the right level for clustering? 
 	- incorporate sampling uncertainty from safegraph and streetlight? 
 
