@@ -84,6 +84,7 @@ I (will) have data on the universe of streetscape projects which applied for ATP
 	- implies that applicants do not have precise control over their scores
 	
 - identifying/handling repeat submissions, always/never takers
+	- always takers might crowd out other amenities in order to fund these projects
 
 ## Outcome Data
 
@@ -119,14 +120,15 @@ Once I have constructed a dataset of project locations and associated outcome va
 		- tests of bias
 
 - graphical representation
+	- continuity of the density of the running variable (manipulation test, L&L § 4.4.1)
+		- histogram of the running variable (no smoothed polynomial estimate)
+		- McCrary (2008) test
 	- continuity of covariates on the running variable across the funding threshold (balance test, L&L § 4.4.2)
 		- for a large number of covariates, use a Seemingly Unrelated Regression, use Chi-squared joint test
-	- continuity of the density of the running variable (manipulation test, L&L § 4.4.1)
-		- McCrary (2008) test
 	- probability of treatment on the running variable across the threshold
 		- show the magnitude in probability jump in a fuzzy setting
 	- discontinuity of the outcome variable across the threshold
-		- plot binned individuals
+		- plot binned individuals (non-overlapping bins)
 		- plot polynomial fit line
 	
 - Regression specification
@@ -151,12 +153,19 @@ Once I have constructed a dataset of project locations and associated outcome va
 		 - 2SLS estimation (use the same bandwidth/polynomial order for both stages)
 	     	- choose bandwidth/order for outcome equation, then use the same bandwidth for the first stage
 	- inclusion of covariates (L&L § 4.5)
-		- 
+		- Residualize out the covariates
+			- has the potential to yield higher standard errors than the homogeneous regression
+			- allows a test of appropriate functional form
+		- Include the covariates in the specification
+			- guarantees tighter standard errors (with a consistent estimator)
+			- but cannot distinguish between improper specification and discontinuities in the covariates
+		- show robustness of treatment effect to inclusion/residualization/exclusion of covariates
+		
 		
 		
 
 - standard errors/clustering (L&L § 4.3.4)
-	- 2SLS fuzzy standard errors
+	- 2SLS robust standard errors
 	- what's the right level for clustering? 
 	- incorporate sampling uncertainty from safegraph and streetlight? 
 
