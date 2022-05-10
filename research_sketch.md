@@ -44,6 +44,10 @@ Receiving funding from any one particular grant program does not guarantee that 
 
 ## Literature Review
 
+This project will contribute to several literatures. This project is the first of which I am aware to econometrically estimate the causal impact streetscape improvements, particularly bike lanes. There is an existing literature on the economic impacts of transportation infrastructure, such as [XXX]. However, these papers generally considered the impacts of large-scale transportation infrastructure, like highways [@sleiman2021] and public transit [@tsivanidis2019; @gendron-carrier2022]. @gonzalez-navarro2016 explore the impacts on paving previously unpaved roads on home values. Impacts of bicycle and pedestrian infrastructure have not been well studied in the economics literature. Meanwhile, there have been a variety of published studies in peer-reviewed and gray literature providing observational or engineering estimates of the impacts of bike lanes and other active transportation infrastructure. @volker2021 provide a review of this literature on bike infrastructure's impact on nearby businesses. These studies, primarily observational studies looking at a single project before and after construction, or with an identified control street, tend to find either positive effects on business outcomes or no clear effect. This study is the first to examine a large panel of proposed bicycle and active transportation infrastructure projects, and causally identify their impacts on relevant outcomes.
+
+Next, it will add to a rich literature on spatial sorting and urban geography, particularly how local amenities impact home values and neighborhood demographics. 
+
 # Streetscape Projects Background
 
 ## Streetscape Projects Description
@@ -56,13 +60,9 @@ Most transportation infrastructure funding in the US is dedicated to private veh
 
 The California Active Transportation Program (ATP) is a state funding program jointly administered by the CA Transportation Commission (CTC) and the Department of Transportation (Caltrans). Given the limited funds available to localities for streetscape changes (or even basic road maintenance), the ATP is the primary funding source for many of these types of projects built in the state. The ATP was originally created in 2013 (SB 99), with the goal of increasing active modes of transportation, like walking and biking. The program allocates both state and federal transportation dollars to support these projects, initially funded at approximately $123 million per year, and increased to $XX million annually in 2017, using increased revenues from the state gas tax. Funds have been awarded in five rounds as of 2021, with the sixth round open for applications in 2022. Each funding round includes a statewide component, a component for each of California's eighteen Metropolitan Planning Organizations (MPO), and a component for "small urban and rural" areas that do not fall into an MPO. 
 
-For each funding round, cities and counties submit detailed application packets describing the projects they wish to fund. These application packets include descriptions of the location of the project, the current street conditions, intended changes and attributes of the project, estimated budget and timeline, and whom the project is likely to benefit. Once applications have been submitted, independent evaluators assign scores to each project using a fixed, pre-announced rubric, in categories like whether the project is in a disadvantaged community, the potential to increase the number of users, the potential to reduce collisions, the level of public participation in the planning process, whether the project design is context-sensitive and transformative to the streetscape, and cost effectiveness. These scores are totaled, yielding an overall score for each project that can range from 0 to 100. 
+For each funding round, cities and counties submit detailed application packets describing the projects they wish to fund. These application packets include descriptions of the location of the project, the current street conditions, intended changes and attributes of the project, estimated budget and timeline, and whom the project is likely to benefit. Once applications have been submitted, independent evaluators assign scores to each project using a fixed, pre-announced rubric, in categories like whether the project is in a disadvantaged community, the potential to increase the number of users, the potential to reduce collisions, the level of public participation in the planning process, whether the project design is context-sensitive and transformative to the streetscape, and cost effectiveness. These scores are totaled, yielding an overall score for each project that can range from 0 to 100. The evaluators—volunteers with expertise in active transportation, safe routes to school projects, disadvantaged communities, and equity—are assigned to teams of two, each evaluating a project individually before reaching a consensus on scores for each question. CTC staff also evaluates and scores applications, and CTC, Caltrans, and volunteer evaluators then meet to discuss and review scores. Evaluators are not assigned applications from their county of residence or occupation, are assigned no more than one application from any given jurisdiction, and sign a conflict of interest form. Once scores are evaluated and vetted, projects are ranked according to their score.
 
-<!-- Are projects scored by multiple people? Are there protections against conflicts of interest of evaluators? -->
-
-Because city budgets are often insufficient to fully fund these projects, the ATP receives far more applications from California localities than its budget can support. As a result, once applications have been submitted and scored, ATP staff define a threshold score that corresponds to the exhaustion of the budget for that round. Projects which receive a score above the budget threshold score receive the full requested allocation, while projects whose scores fall below the budget threshold score receive no funding from the ATP. The budget threshold is not known until after all the projects have been submitted. Therefore, while applicants are incentivized to structure their application in order to maximize their score overall, they do not have the information required to manipulate their score specifically around the threshold. Conversations with ATP staff indicate that many more projects are worthy of funding than actually receive funding, and that they believe there is little difference in the quality of projects above the threshold than those slightly below the threshold. 
-
-<!-- ATP budgets are set by the legislature, and are not set until after the applications have been submitted and scored, correct? -->
+Because city budgets are often insufficient to fully fund these projects, the ATP receives far more applications from California localities than its budget can support. As a result, once applications have been submitted and scored, ATP staff define a threshold score that corresponds to the exhaustion of the budget for that round. Projects which receive a score above the budget threshold score receive the full requested allocation, while projects whose scores fall below the budget threshold score receive no funding from the ATP. While the CTC provides an estimated amount of funding available in given round when it is opened or applications, the number of applications and the amount of funding requested is not known by applicants, evaluators, or stakeholders until after scores have been finalized. Once scores are finalized, the available budget is used to define a threshold score. This score is not known by anyone until after scores are finalized, including by CTC staff or evaluators. Therefore, while applicants are incentivized to structure their application in order to maximize their score overall, they do not have the information required to precisely manipulate their score specifically around the threshold. Conversations with ATP staff indicate that many more projects are worthy of funding than actually receive funding, and that they believe there is little difference in the quality of projects above the threshold than those slightly below the threshold. 
 
 # Data Overview
 
@@ -82,7 +82,7 @@ I (will) have data on the universe of streetscape projects which applied for ATP
 - look for evaluation criteria that involve a level of judgment and are not just direct 
   numerical rules based on the application
 	- implies that applicants do not have precise control over their scores
-	
+
 - identifying/handling repeat submissions, always/never takers
 	- always takers might crowd out other amenities in order to fund these projects
 
@@ -108,7 +108,7 @@ Once I have constructed a dataset of project locations and associated outcome va
 
 - discussion of Lee & Lemieux RD checklist paper
 
-- Fuzzy RD/Difference in discontinuities
+- Fuzzy RD
 	- imprecise control implies local randomization
 	- estimate: weighted LATE
 		- weighted average treatment effect for compliers
@@ -130,7 +130,7 @@ Once I have constructed a dataset of project locations and associated outcome va
 	- discontinuity of the outcome variable across the threshold
 		- plot binned individuals (non-overlapping bins)
 		- plot polynomial fit line
-	
+
 - Regression specification
 	- parametric or nonparametric? (L&L § 4.2.1)
 		- robustness tests
@@ -160,14 +160,16 @@ Once I have constructed a dataset of project locations and associated outcome va
 			- guarantees tighter standard errors (with a consistent estimator)
 			- but cannot distinguish between improper specification and discontinuities in the covariates
 		- show robustness of treatment effect to inclusion/residualization/exclusion of covariates
-		
-		
-		
+	- leverage panel structure? Differences in discontinuities?
+		- usually employed only to difference out an effect of one treatment when multiple treatments
+		  turn on at the discontinuity
+		- could potentially be used to increase precision beyond just inclusion of lagged outcome variables?
+		- can the panel structure be used to incorporate the multiple rounds/discontinuities?
+
 
 - standard errors/clustering (L&L § 4.3.4)
 	- 2SLS robust standard errors
-	- what's the right level for clustering? 
-	- incorporate sampling uncertainty from safegraph and streetlight? 
+	- what's the right level for clustering?
 
 - incorporation of multiple rounds/discontinuities? 
 

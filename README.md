@@ -67,15 +67,13 @@
 - [ ] Develop summary tables for infrastructure projects and outcome data
 - [X] Use a single project as a presentation case study
 - [ ] Literature review
+	- Focus on tying into the key economic question, and its place in that literature
 - [X] Summarize the scope of funding programs that can be used for identification, power calculations
 - [ ] Identify an external committee member
 
-- [X] ERE Slides
-	- Big Picture motivation: Incidence and distributional impacts of these projects
-	- Specific research question: Impact of [streetscape changes] on [outcomes]
-	- Example project
-		- Overview of information
-		- Maps
-		- Timeline
-	- Description of existing data
-	- Preliminary discussion of power, if possible
+### Orals Components
+
+- [ ] Prospectus
+	- When sending prospectus, offer to meet with orals faculty members prior to orals date
+- [ ] Presentation
+	- aim for ~30 minutes of me talking, will be lots of interruptions and questions
