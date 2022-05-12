@@ -2,7 +2,11 @@
 title: Streetscape Changes and Infrastructure Equity
 author: Connor P. Jackson
 lang: en
-output: word_document
+output: 
+  pdf_document:
+    number_sections: yes
+  word_document: default
+linestretch: 1.5
 linkcolor: blue
 urlcolor: blue
 bibliography: "/Users/connor/Zotero/My_Library.json"
@@ -102,61 +106,59 @@ The ATP awards funding to streetscape projects with scores above a threshold def
 
 Because the treatment probability does not sharply jump from 0 to 1 at the threshold—funded projects could fail to be constructed, and denied projects could be constructed using other funds—this research design will use a "fuzzy" RD approach. As a result, the treatment effect identified will be a weighted local average treatment effect (LATE). The LATE estimates the average treatment effect for compliers (in the language of @angrist1996): those who construct the project if funded, and those who do not construct the project if not funded. The weights for this weighted LATE are the ex-ante likelihood that an applicant's score is close to the threshold (conditional on observables). The LATE estimation requires two additional assumptions: monotonicity (no defiers who would construct the project if denied funding, but would not construct if awarded funding) and excludability (crossing the score threshold can only impact the outcome via the treatment). While these assumptions cannot be proven to hold, I can provide evidence to support them, and the broader validity of the research design. 
 
+## graphical representation
 
+- choice of graphical bandwidth (L&L § 4.1)
+	- cross validation approach
+	- tests of bias
+- continuity of the density of the running variable (manipulation test, L&L § 4.4.1)
+	- histogram of the running variable (no smoothed polynomial estimate)
+	- McCrary (2008) test
+- continuity of covariates on the running variable across the funding threshold (balance test, L&L § 4.4.2)
+	- for a large number of covariates, use a Seemingly Unrelated Regression, use Chi-squared joint test
+- probability of treatment on the running variable across the threshold
+	- show the magnitude in probability jump in a fuzzy setting
+- discontinuity of the outcome variable across the threshold
+	- plot binned individuals (non-overlapping bins)
+	- plot polynomial fit line
 
-- graphical representation
-	- choice of graphical bandwidth (L&L § 4.1)
-		- cross validation approach
-		- tests of bias
-	- continuity of the density of the running variable (manipulation test, L&L § 4.4.1)
-		- histogram of the running variable (no smoothed polynomial estimate)
-		- McCrary (2008) test
-	- continuity of covariates on the running variable across the funding threshold (balance test, L&L § 4.4.2)
-		- for a large number of covariates, use a Seemingly Unrelated Regression, use Chi-squared joint test
-	- probability of treatment on the running variable across the threshold
-		- show the magnitude in probability jump in a fuzzy setting
-	- discontinuity of the outcome variable across the threshold
-		- plot binned individuals (non-overlapping bins)
-		- plot polynomial fit line
+## Regression specification
 
-- Regression specification
-	- parametric or nonparametric? (L&L § 4.2.1)
-		- robustness tests
-			- robust to polynomial specifications of the running variable (and covariates)
-			- robust to different window widths around the cutoff (local linear regression)
-		- separate regressions on either side of the cutoff point (or pooled regression with 
-		  full interactions with treatment)
-		- local linear regression: choice of estimation bandwidth (L&L § 4.3.1)
-			- Cross validation (leave one out) and rule of thumb approaches
-			- look at graphs first: outcomes with a great deal of curvature are more likely 
-			  to be sensitive to the choice of bandwidth due to larger bias from larger bandwidths
-		- local polynomial modeling (L&L § 4.3.2)
-			- choice of polynomial order
-				- compare to nonparametric bins used for graphical analysis: add higher order 
-				  terms until bin dummies are no longer jointly significant
-					- also acts as a test for the presence of discontinuities away from the cutoff
-				- can also use AIC to inform order choice
-				- be wary of overfitting: compensate with lower order polynomials with smaller bandwidths
-	- Fuzzy estimation (L&L § 4.3.3)
-		 - 2SLS estimation (use the same bandwidth/polynomial order for both stages)
-	     	- choose bandwidth/order for outcome equation, then use the same bandwidth for the first stage
-	- inclusion of covariates (L&L § 4.5)
-		- Residualize out the covariates
-			- has the potential to yield higher standard errors than the homogeneous regression
-			- allows a test of appropriate functional form
-		- Include the covariates in the specification
-			- guarantees tighter standard errors (with a consistent estimator)
-			- but cannot distinguish between improper specification and discontinuities in the covariates
-		- show robustness of treatment effect to inclusion/residualization/exclusion of covariates
-	- leverage panel structure? Differences in discontinuities?
-		- usually employed only to difference out an effect of one treatment when multiple treatments
-		  turn on at the discontinuity
-		- could potentially be used to increase precision beyond just inclusion of lagged outcome variables?
-		- can the panel structure be used to incorporate the multiple rounds/discontinuities?
-
+- parametric or nonparametric? (L&L § 4.2.1)
+	- robustness tests
+		- robust to polynomial specifications of the running variable (and covariates)
+		- robust to different window widths around the cutoff (local linear regression)
+	- separate regressions on either side of the cutoff point (or pooled regression with 
+	  full interactions with treatment)
+	- local linear regression: choice of estimation bandwidth (L&L § 4.3.1)
+		- Cross validation (leave one out) and rule of thumb approaches
+		- look at graphs first: outcomes with a great deal of curvature are more likely 
+		  to be sensitive to the choice of bandwidth due to larger bias from larger bandwidths
+	- local polynomial modeling (L&L § 4.3.2)
+		- choice of polynomial order
+			- compare to nonparametric bins used for graphical analysis: add higher order 
+			  terms until bin dummies are no longer jointly significant
+			- also acts as a test for the presence of discontinuities away from the cutoff
+			- can also use AIC to inform order choice
+			- be wary of overfitting: compensate with lower order polynomials with smaller bandwidths
+- Fuzzy estimation (L&L § 4.3.3)
+	 - 2SLS estimation (use the same bandwidth/polynomial order for both stages)
+		- choose bandwidth/order for outcome equation, then use the same bandwidth for the first stage
+- inclusion of covariates (L&L § 4.5)
+	- Residualize out the covariates
+		- has the potential to yield higher standard errors than the homogeneous regression
+		- allows a test of appropriate functional form
+	- Include the covariates in the specification
+		- guarantees tighter standard errors (with a consistent estimator)
+		- but cannot distinguish between improper specification and discontinuities in the covariates
+	- show robustness of treatment effect to inclusion/residualization/exclusion of covariates
+- leverage panel structure? Differences in discontinuities?
+	- usually employed only to difference out an effect of one treatment when multiple treatments
+	  turn on at the discontinuity
+	- could potentially be used to increase precision beyond just inclusion of lagged outcome variables?
+	- can the panel structure be used to incorporate the multiple rounds/discontinuities?
 - standard errors/clustering (L&L § 4.3.4)
 	- 2SLS robust standard errors
 	- what's the right level for clustering?
-
 - incorporation of multiple rounds/discontinuities? 
 
