@@ -1,6 +1,6 @@
 ---
 title: Streetscape Changes and Infrastructure Equity
-subtitle: Orals Prospectus
+subtitle: Orals Prospectus Draft (DO NOT CIRCULATE)
 author: Connor P. Jackson
 thanks: "Thanks to my advisor, James Sallee, and orals chair, Michael Anderson, for invaluable guidance. Thanks to Reed Walker, Timothy McQuade, Nick Tsivanidis, ARE ERE seminar attendees, and the ARE environment workshop for feedback and suggestions."
 date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
@@ -110,59 +110,20 @@ The ATP awards funding to streetscape projects with scores above a threshold def
 
 Because the treatment probability does not sharply jump from 0 to 1 at the threshold—funded projects could fail to be constructed, and denied projects could be constructed using other funds—this research design will use a "fuzzy" RD approach. As a result, the treatment effect identified will be a weighted local average treatment effect (LATE). The LATE estimates the average treatment effect for compliers (in the language of @angrist1996): those who construct the project if funded, and those who do not construct the project if not funded. The weights for this weighted LATE are the ex-ante likelihood that an applicant's score is close to the threshold (conditional on observables). The LATE estimation requires two additional assumptions: monotonicity (no defiers who would construct the project if denied funding, but would not construct if awarded funding) and excludability (crossing the score threshold can only impact the outcome via the treatment). While these assumptions cannot be proven to hold, I can provide evidence to support them, and the broader validity of the research design. 
 
-## graphical representation
+To verify the validity of the research design in this setting, I first create a series of graphs over the running variable, to visually inspect the data for violations of the research design: in particular, bunching or manipulation of the running variable, and discontinuities in the covariates. In all of these graphs, I will use a binned scatter plot, ensuring that the funding threshold score coincides with a bin break. To choose the bin bandwidth, I will use the approaches described in @lee2010 [section 4.1] to balance sufficient precision and avoiding bias in the degree of smoothing provided. The two approaches: a cross-validation approach developed by @ludwig2007 which minimizes the "leave one out" mean square prediction error, and a test for within-bin relationships between the running variable and the outcome variable. Once a bandwidth (or series of bandwidths, for robustness) has been chosen, I use it to create a series of graphs. 
 
-- choice of graphical bandwidth (L&L § 4.1)
-	- cross validation approach
-	- tests of bias
-- continuity of the density of the running variable (manipulation test, L&L § 4.4.1)
-	- histogram of the running variable (no smoothed polynomial estimate)
-	- McCrary (2008) test
-- continuity of covariates on the running variable across the funding threshold (balance test, L&L § 4.4.2)
-	- for a large number of covariates, use a Seemingly Unrelated Regression, use Chi-squared joint test
-- probability of treatment on the running variable across the threshold
-	- show the magnitude in probability jump in a fuzzy setting
-- discontinuity of the outcome variable across the threshold
-	- plot binned individuals (non-overlapping bins)
-	- plot polynomial fit line
+The first is a histogram of the running variable (project score), which will help detect discontinuities in the running variable around the treatment threshold, indicating that applicants are able to manipulate their probability of treatment discontinuously around the threshold. This graph will be paired with a test for discontinuity in the running variable density, following @mccrary2008. Next I will present plots of the relevant covariates over the running variable across the funding threshold, to detect discontinuities in the covariates, again a sign of manipulation or selection into treatment. Covariates should vary continuously across the treatment threshold, and I will pair this graph with a joint test of the impact of the threshold on the covariates, using a Seemingly Unrelated Regression (SUR) and $\chi^2$ test [@lee2010 section 4.4.2], and may also pursue placebo tests, in accordance with @imbens2008. Next, I will graph the probability of treatment against the running variable across the threshold. Because this research design is a fuzzy RD, there will be some nonzero probability of treatment below the threshold, and units above the threshold may have treatment probability below 1. This graph will show the magnitude in the jump in treatment probability across the threshold. Finally, I will present my main outcome plots, graphing the outcome variable(s) along the running variable, across the treatment threshold. These binned scatter plots will be accompanied by a quadratic fit polynomial on either side of the threshold (leaving out higher order terms, per @gelman2019). These plots should demonstrate the treatment effect (or lack thereof) of streetscape improvements on the outcome variables of interest. 
 
-## Regression specification
+For my econometric approach, there are several considerations I will need to make. I will consider a few regression specifications to ensure robustness, including parametric (with only linear and quadratic terms, per @gelman2019) and nonparametric approaches. Either specification will employ a full set of interactions with the treatment, to ensure the regressions are separate on each side of the discontinuity. For local linear regression, the choice of bandwidth will be carried out similarly as to the graphical bandwidth: using the cross-validation approach developed by @ludwig2007, and inspecting the graphs for the degree of curvature. Outcomes with greater curvature are more likely to be sensitive to bias due to a larger bandwidth. Finally, I will also consider the results of @calonico2020 for additional guidance on optimal bandwidth selection. Because this Fuzzy RD setting is an instrumental variables approach, I will choose the optimal bandwidth for the outcome equation, and then use the same bandwidth for the first stage.  In either case, I will pursue robustness tests to evaluate sensitivity of the results to the chosen specification.
 
-- parametric or nonparametric? (L&L § 4.2.1)
-	- robustness tests
-		- robust to polynomial specifications of the running variable (and covariates)
-		- robust to different window widths around the cutoff (local linear regression)
-	- separate regressions on either side of the cutoff point (or pooled regression with 
-	  full interactions with treatment)
-	- local linear regression: choice of estimation bandwidth (L&L § 4.3.1)
-		- Cross validation (leave one out) and rule of thumb approaches
-		- look at graphs first: outcomes with a great deal of curvature are more likely 
-		  to be sensitive to the choice of bandwidth due to larger bias from larger bandwidths
-	- local polynomial modeling (L&L § 4.3.2)
-		- choice of polynomial order
-			- compare to nonparametric bins used for graphical analysis: add higher order 
-			  terms until bin dummies are no longer jointly significant
-			- also acts as a test for the presence of discontinuities away from the cutoff
-			- can also use AIC to inform order choice
-			- be wary of overfitting: compensate with lower order polynomials with smaller bandwidths
-- Fuzzy estimation (L&L § 4.3.3)
-	 - 2SLS estimation (use the same bandwidth/polynomial order for both stages)
-		- choose bandwidth/order for outcome equation, then use the same bandwidth for the first stage
-- inclusion of covariates (L&L § 4.5)
-	- Residualize out the covariates
-		- has the potential to yield higher standard errors than the homogeneous regression
-		- allows a test of appropriate functional form
-	- Include the covariates in the specification
-		- guarantees tighter standard errors (with a consistent estimator)
-		- but cannot distinguish between improper specification and discontinuities in the covariates
-	- show robustness of treatment effect to inclusion/residualization/exclusion of covariates
-- leverage panel structure? Differences in discontinuities?
-	- usually employed only to difference out an effect of one treatment when multiple treatments
-	  turn on at the discontinuity
-	- could potentially be used to increase precision beyond just inclusion of lagged outcome variables?
-	- can the panel structure be used to incorporate the multiple rounds/discontinuities?
-- standard errors/clustering (L&L § 4.3.4)
-	- 2SLS robust standard errors
-	- what's the right level for clustering?
-- incorporation of multiple rounds/discontinuities? 
+While covariates and baseline outcomes prior to treatment are not needed in the regression specification for identification under this research design, I hope to include them in order to soak up additional variation and yield smaller standard errors on the treatment effect, as well as explore heterogeneity in the treatment effect. There are two primary ways to include covariates in the regression, and I will pursue both as a robustness check. The first is to residualize out the covariates, which also operates as a test of whether the regression is correctly specified by testing the goodness of fit of the residuals. The downside of this approach is that it may end up with _larger_ standard errors than the simple regression without covariates. The other approach is to include covariates directly in the regression specification, which will yield weakly smaller standard errors without impacting the consistency of the estimator of the treatment effect. However, this approach cannot distinguish between a misspecification of the regression equation and a discontinuity in the covariates. Therefore, my main specification will include covariates directly, but I will also check the robustness of the estimates to inclusion of the covariates as opposed to residualizing them or excluding them entirely, as well as appropriate checks for discontinuities in the covariates, as discussed above. 
 
+The final specification consideration is the inclusion of pretrends data, and the leveraging of the panel structure of my data. I can observe the outcome data both prior to and after the construction of each project, and thus can leverage these baseline data to tighten the standard errors on the estimation of the treatment effect. To do so, I could simply include lagged values of the outcome variables as covariates in the regression. However, I could also pursue an estimation strategy that more fully leverages the panel structure of the data, sometimes referred to as a "differences-in-discontinuities" [@grembi2016]. This approach was initially used to disambiguate the effect of two treatments that turned on at the treatment threshold. However, it can also be used to increase the precision of estimators beyond that achieved just by including lagged outcome variables as covariates [@beach2017]. This approach may be more challenging to apply in a fuzzy RD setting, as described by @galindosilva2018. I will need to spend more time exploring whether this approach is appropriate for my setting. 
+
+The usual standard errors for this fuzzy RD estimator are two-stage least squares heteroskedasticity-robust clustered standard errors. The level of clustering will be important to this research, as localities may submit multiple applications. In addition, the standard errors will likely need to be corrected for the fact that some projects are re-submitted in multiple rounds. However, recent econometrics research have developed more advanced tools for inference with regression discontinuities when including covariates [@calonico2019; @imbens2019]. I will review these approaches and consider how they might be best integrated into my estimation procedures. 
+	
+# Conclusion and Next Steps
+
+This project aims to estimate the effects of streetscape infrastructure changes on traffic and business outcomes, as well as explore their implications on the spatial equilibrium through land values and displacement. As I receive data on these infrastructure projects, my next steps will be to perform some initial power analyses as described above. These preliminary analyses will allow me to understand whether I am sufficiently powered with the set of projects currently in place, as well as whether I can expect to be sufficiently powered once more projects are built. 
+
+As long as the ATP projects provide a sufficient sample for detecting effects with reasonable precision, I will then turn to more precisely defining the set of geospatially linked outcome data, particularly for the SafeGraph POI data. In addition, I will explore the most appropriate structure for my econometric specification, given its fuzzy RD nature, the inclusion of covariates, and the panel structure of the data. In addition, I will explore more of the urban and spatial literature to find a framing or structural model that this natural experiment can inform. 
