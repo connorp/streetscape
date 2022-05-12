@@ -1,12 +1,16 @@
 ---
 title: Streetscape Changes and Infrastructure Equity
+subtitle: Orals Prospectus
 author: Connor P. Jackson
+thanks: "Thanks to my advisor, James Sallee, and orals chair, Michael Anderson, for invaluable guidance. Thanks to Reed Walker, Timothy McQuade, Nick Tsivanidis, ARE ERE seminar attendees, and the ARE environment workshop for feedback and suggestions."
+date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
 lang: en
 output: 
   pdf_document:
     number_sections: yes
   word_document: default
 linestretch: 1.5
+fontsize: 
 linkcolor: blue
 urlcolor: blue
 bibliography: "/Users/connor/Zotero/My_Library.json"
