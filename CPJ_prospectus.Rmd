@@ -6,9 +6,9 @@ thanks: "Thanks to my advisor, James Sallee, and orals chair, Michael Anderson, 
 date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
 lang: en
 output: 
+  word_document: default
   pdf_document:
     number_sections: yes
-  word_document: default
 linestretch: 1.5
 fontsize: 
 linkcolor: blue
@@ -60,7 +60,7 @@ Most transportation infrastructure funding in the US is dedicated to private veh
 
 ## California Active Transportation Program
 
-The California Active Transportation Program (ATP) is a state funding program jointly administered by the CA Transportation Commission (CTC) and the Department of Transportation (Caltrans). Given the limited funds available to localities for streetscape changes (or even basic road maintenance), the ATP is the primary funding source for many of these types of projects built in the state. The ATP was originally created in 2013 (SB 99), with the goal of increasing active modes of transportation, like walking and biking. The program allocates both state and federal transportation dollars to support these projects, initially funded at approximately $123 million per year, and increased to $XX million annually in 2017, using increased revenues from the state gas tax. Funds have been awarded in five rounds as of 2021, with the sixth round open for applications in 2022. Each funding round includes a statewide component, a component for each of California's eighteen Metropolitan Planning Organizations (MPO), and a component for "small urban and rural" areas that do not fall into an MPO. 
+The California Active Transportation Program (ATP) is a state funding program jointly administered by the CA Transportation Commission (CTC) and the Department of Transportation (Caltrans). Given the limited funds available to localities for streetscape changes (or even basic road maintenance), the ATP is the primary funding source for many of these types of projects built in the state. The ATP was originally created in 2013 (SB 99), with the goal of increasing active modes of transportation, like walking and biking. The program allocates both state and federal transportation dollars to support these projects, initially funded at approximately $123 million per year, and increased to $223 million annually in 2017, using increased revenues from the state gas tax. Funds have been awarded in five rounds as of 2021, with the sixth round open for applications in 2022. Each funding round includes a statewide component, a component for each of California's eighteen Metropolitan Planning Organizations (MPO), and a component for "small urban and rural" areas that do not fall into an MPO. 
 
 For each funding round, cities and counties submit detailed application packets describing the projects they wish to fund. These application packets include descriptions of the location of the project, the current street conditions, intended changes and attributes of the project, estimated budget and timeline, and whom the project is likely to benefit. Once applications have been submitted, independent evaluators assign scores to each project using a fixed, pre-announced rubric, in categories like whether the project is in a disadvantaged community, the potential to increase the number of users, the potential to reduce collisions, the level of public participation in the planning process, whether the project design is context-sensitive and transformative to the streetscape, and cost effectiveness. Some of the scored items are objective criteria, such as whether the project is located within a disadvantaged community, and the median household income in the project area. Other questions, however, involve the subjective application of a grading rubric to the applicant's response to a question by project evaluators. While the rubrics are published in advance and applicants can structure their applications to maximize their points on this rubric, the score still relies on the subjective assessment of project evaluators, preventing applicants from having precise control over their scores.
 
@@ -94,7 +94,9 @@ To estimate the outcomes of these infrastructure projects, I will use several di
 
 For traffic outcomes, I will use data from [Streetlight Data](https://www.streetlightdata.com). Their data provide traffic speeds and throughput on specified road segments by day of month or hour of day, averaged monthly or annually. Traffic crash and fatality data will be from the Transportation Injury Mapping System (TIMS) [@TIMS2022], which sources its data from California's [Statewide Integrated Traffic Records System (SWITRS)](https://www.chp.ca.gov/programs-services/services-information/switrs-internet-statewide-integrated-traffic-records-system). SWITRS records all crashes reported to the California Highway Patrol, including those reported by local agencies and city police departments. It contains geocoded data mapping all reported crashes in California, including the location, time, involved vehicles, severity, and the number of people injured or killed. 
 
-In addition, I will ultimately be exploring outcomes on housing, land values, and spatial sorting equilibria. I have yet to identify a specific dataset or datasets to use for these outcomes, but hope to be able to observe land values and real estate prices, commercial rental rates, and residential moves or displacement. 
+In addition, I will ultimately be exploring outcomes on housing, land values, and spatial sorting equilibria. I have yet to identify a specific dataset or datasets to use for these outcomes, but hope to be able to observe land values and real estate prices, commercial rental rates, and residential moves or displacement.
+
+<!-- When will post-treatment observations be? How long does it take travelers to re-equilibrate their commutes following a disruption? Change modes?  -->
 
 ## Power Analysis
 
