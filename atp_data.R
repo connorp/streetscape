@@ -94,12 +94,15 @@ scores[, Application.ID := gsub("4-Sunnyvale-1", "4-Sunnyvale-2", Application.ID
 setnames(scores, "Application.ID", "Project.App.Id")
 setkey(scores, Project.Cycle, Project.App.Id)
 
+scores3 <- merge(scores3, fread("county_crosswalk.csv"), on = "Co")
+scores3[, Co := NULL]
+
 # Cycle 3 scores have to be handled differently because they don't have 
 # application IDs attached
 scores3[, Project.Title := gsub("\\r\\n", " ", Project.Title)] 
 scores3[, Applicant := gsub("\\r\\n", " ", Applicant)] 
-setnames(scores3, c("Applicant", "Project.Title", "Co"), 
-         c("A1.Imp.Agcy.Name", "A2.Info.Proj.Name", "County"))
+setnames(scores3, c("Applicant", "Project.Title"), 
+         c("A1.Imp.Agcy.Name", "A2.Info.Proj.Name"))
 setkey(scores3, Project.Cycle, A1.Imp.Agcy.Name, A2.Info.Proj.Name)
 
 # merge the scores (and county) into the data
@@ -118,4 +121,46 @@ infra_projects <- c("Infrastructure (I)", "Combination (I/NI)",
                     "Infrastructure + NI - Large", "Infrastructure + NI - Medium",
                     "Infrastructure + NI - Small", "Infrastructure - Large", 
                     "Infrastructure - Medium", "Infrastructure - Small")
-atp <- atp[A3.Proj.Type %in% infra_projects]
+analysis_cols <- readLines("columns_to_use.txt")
+atp <- atp[A3.Proj.Type %in% infra_projects, ..analysis_cols]
+
+# include Class 1 bike trails in this metric for now
+atp[, bike_lanes := rowSums(.SD), .SDcols=c("B.Class.1", "B.Class.2", "B.Class.3", "B.Class.4")]
+
+bike_intersection_cols <- c("B.Sig.Inter.New.Bike.Boxes", "B.Light.Intersection", 
+                            "B.Mid.Block.New.RRFB.Signal", "B.Sig.Inter.Timing.Improv", 
+                            "B.Un.Sig.New.RRFB.Signal", "B.Un.Sig.Cross.Surf.Improv", 
+                            "B.Mid.Block.Surf.Improv")
+atp[, bike_intersect := rowSums(.SD) > 0, .SDcols = bike_intersection_cols]
+
+atp[, bikeshare := rowSums(.SD) > 0, .SDcols=c("B.BSP.New.Bikes", "B.BSP.New.Station")]
+
+atp[, bike_parking := rowSums(.SD) > 0, .SDcols=c("B.Bike.New.Secured.Lockers", "B.Bike.New.Racks")]
+
+atp[, any_bike_improv := rowSums(.SD) > 0, .SDcols=c("bike_lanes", "bike_intersect",
+                                                  "bikeshare", "bike_parking",
+                                                  "B.Light.Rdwy.Seg")]
+
+sidewalk_cols <- c("P.Sidewlks.New.Barrier.Protect", "P.Sidewlks.New_4_to_8", 
+                   "P.Sidewlks.New_over.8", "P.Sidewlks.Widen.Existing", 
+                   "P.Sidewlks.Reconstruct.Enhance.Exist")
+atp[, sidewalk := rowSums(.SD), .SDcols=sidewalk_cols]
+
+ped_intersection_cols <- c("P.Sig.Inter.Enhance.Exist.Crosswlk", 
+                           "P.Sig.Inter.New.Crosswlk", "P.Sig.Inter.Ped.Heads", 
+                           "P.Sig.Inter.Shorten.Cross", "P.Sig.Inter.Timing.Improv", 
+                           "P.Un.Sig.Inter.New.Traff.Sig", "P.Un.Sig.Inter.New.Roundabout", 
+                           "P.Un.Sig.Inter.New.RRFB.Sig", "P.Un.Sig.Inter.Shorten.Cross",
+                           "P.Un.Sig.Inter.Cross.Surface.Improv", 
+                           "P.Mid.Block.Cross.New.RRFB.Signal", 
+                           "P.Mid.Block.Cross.Surf.Improv")
+atp[, ped_intersect := rowSums(.SD), .SDcols=ped_intersection_cols]
+
+atp[, ped_curbcut := rowSums(.SD) > 0, .SDcols=c("P.New.ADA.Ramp", "P.Reconstruct.Ramp.to.ADA.Stand")]
+
+atp[, any_ped_improv := rowSums(.SD) > 0, .SDcols=c("sidewalk", "ped_intersect", "ped_curbcut")]
+
+veh_cols <- c("V.Remove.Travel.Ln", "V.Remove.Right.Turn.Pocket", "V.Sig.Inter.New.Roundabout",
+              "V.Sig.Inter.Timing.Improv", "V.Un.Sig.Inter.New.Traf.Sig", 
+              "V.Un.Sig.Inter.New.Roundabout", "V.Speed.Feedback.Signs")
+atp[, any_veh_calming := rowSums(.SD) > 0, .SDcols=veh_cols]

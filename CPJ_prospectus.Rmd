@@ -24,6 +24,13 @@ abstract: |
   Streetscape design is an important determinant of the spatial equilibrium in urban areas. Projects that reallocate street space between users create winners and losers, and understanding the impacts of these projects, who bears the costs and benefits, and how they lead to spatial resorting is an important policy question as cities pursue these projects. This project uses a discontinuity in funding awards from the California Active Transportation Program to provide quasi-random variation in the installation of bike lanes, and the removal of vehicle travel lanes and on-street parking. Using this variation, I will estimate the impacts of these treatments on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities. 
 ---
 
+```{r setup}
+#| include=FALSE
+library(knitr)
+source("atp_data.R")
+```
+
+
 # Introduction
 
 In recent years, local governments have been spending substantial amounts of funding on changes to street infrastructure. These projects, which use physical changes to the streetscape to reallocate space between uses and modify user behavior, are often justified as improving safety, health, comfort, efficiency, mode share, and emissions. However, streetscape changes like these are often met with fierce opposition, citing impacts to vehicle throughput, increased travel times, decreased parking availability, and reduced access for business deliveries and customers. In addition, street infrastructure is an important determinant of the spatial equilibrium in urban areas. The allocation of road space for various purposes provides amenities to nearby residents, workers, and visitors, enables the provision of other amenities, like outdoor dining or urban art, and impacts travel times. These amenities and disamenities drive changes to the spatial equilibrium of housing markets and the broader urban landscape.
