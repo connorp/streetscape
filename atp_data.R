@@ -154,7 +154,7 @@ ped_intersection_cols <- c("P.Sig.Inter.Enhance.Exist.Crosswlk",
                            "P.Un.Sig.Inter.Cross.Surface.Improv", 
                            "P.Mid.Block.Cross.New.RRFB.Signal", 
                            "P.Mid.Block.Cross.Surf.Improv")
-atp[, ped_intersect := rowSums(.SD), .SDcols=ped_intersection_cols]
+atp[, ped_intersect := rowSums(.SD) > 0, .SDcols=ped_intersection_cols]
 
 atp[, ped_curbcut := rowSums(.SD) > 0, .SDcols=c("P.New.ADA.Ramp", "P.Reconstruct.Ramp.to.ADA.Stand")]
 
@@ -164,3 +164,7 @@ veh_cols <- c("V.Remove.Travel.Ln", "V.Remove.Right.Turn.Pocket", "V.Sig.Inter.N
               "V.Sig.Inter.Timing.Improv", "V.Un.Sig.Inter.New.Traf.Sig", 
               "V.Un.Sig.Inter.New.Roundabout", "V.Speed.Feedback.Signs")
 atp[, any_veh_calming := rowSums(.SD) > 0, .SDcols=veh_cols]
+
+# Other improvements cleaning
+atp[B.Other.Bike.Improv.1 %in% c("-", "0", "N/A", "None"), B.Other.Bike.Improv.1 := NA]
+atp[B.Other.Bike.Improv.2 %in% c("-", "0", "N/A", "None"), B.Other.Bike.Improv.2 := NA]

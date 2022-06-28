@@ -81,9 +81,28 @@ Because city budgets are often insufficient to fully fund these projects, the AT
 
 ## ATP Projects Data
 
-I (will) have data on the universe of streetscape projects which applied for ATP funding. In addition to the information included in the application packets—the location of the project, the current street conditions, intended changes and attributes of the project, and the estimated budget and timeline—the data include the score assigned to each project, and the current construction status of projects approved for funding, including the date of completion, if completed. The project component data is particularly rich, with detailed variables on many project attributes, such as the length of Class I, II, III, and IV bike lanes installed, length of vehicle travel lanes removed, number of intersections receiving traffic signal upgrades or retiming, number of street lights installed, number of new bike racks installed, and length of sidewalk installed, rebuilt, or widened. While the data include information about project locations, that information is provided as PDF maps, verbal descriptions, and a single latitude/longitude point. In order to match the projects to the outcome data, I generate shapefiles of polygons denoting the right of way in which the project is being built. These shapefiles are built manually using ArcGIS, using the PDF maps of project locations as well as verbal descriptions of their spatial extent.
+I have data on the universe of streetscape projects which applied for ATP funding. In addition to the information included in the application packets—the location of the project, the current street conditions, intended changes and attributes of the project, and the estimated budget and timeline—the data include the score assigned to each project, and the current construction status of projects approved for funding, including the date of completion, if completed. The project component data is particularly rich, with detailed variables on many project attributes, such as the length of Class I, II, III, and IV bike lanes installed, length of vehicle travel lanes removed, number of intersections receiving traffic signal upgrades or retiming, number of street lights installed, number of new bike racks installed, and length of sidewalk installed, rebuilt, or widened. While the data include information about project locations, that information is provided as PDF maps, verbal descriptions, and a single latitude/longitude point. In order to match the projects to the outcome data, I generate shapefiles of polygons denoting the right of way in which the project is being built. These shapefiles are built manually using ArcGIS, using the PDF maps of project locations as well as verbal descriptions of their spatial extent.
 
+Thus far, I have data on projects submitted to ATP rounds 3, 4, and 5. Round 6 is currently accepting applications, and rounds 1 and 2 data are scanned PDFs, and will thus require manual digitization. Table @ref{tab:atp-sample} includes summary statistics for the number of projects submitted in each round, as well as the types of attributes commonly included in these projects. 
+  
 <!-- sample sizes, discussion of common project attributes -->
+```{r atp-sample}
+#| echo=FALSE
+atp[,.(`Projects Submitted` = .N,
+       `Any Bike Improvements` = mean(any_bike_improv),
+       `Adds Bike Lanes` = mean(bike_lanes > 0), 
+       `Improves Intersections/Crossing for Bikes` = mean(bike_intersect),
+       `Expands Bikeshare` = mean(bikeshare), 
+       `Adds Bike Parking` = mean(bike_parking),
+       `Any Pedestrian Improvements` = mean(any_ped_improv),
+       `Improves or Adds Sidewalks` = mean(sidewalk > 0),
+       `Improves Intersections/Crossings for Pedestrians` = mean(ped_intersect),
+       `Adds Curbcuts or Accessibility Improvements` = mean(ped_curbcut),
+       `Any Vehicle Traffic Calming Improvements` = mean(any_veh_calming),
+       `Removed General Travel Lane` = mean(V.Remove.Travel.Ln > 0)), 
+    keyby = .(Project.Cycle)]
+```
+
 
 Using the ATP projects as the sample does imply some potential sample selection issues, some of which influence the interpretation of the estimated effects, while others may threaten the integrity of the research design. Because this is a sample of projects which localities have actively pursued, the treatment effect might differ from an average treatment effect for a bike lane installed on a randomly chosen street. The localities and streets observed in this dataset might quantitatively differ from a random sample of California streets. Localities which are applying for these funds might already be in the process of gentrifying prior to the construction of the streetscape infrastructure changes, or have other differences from localities which did not apply. While these selection concerns impact the external validity of the results, and how one should interpret the estimated coefficients, it should not lead to bias in the estimates, since identification is from project funding at the score threshold, not whether they submitted an application. 
 
