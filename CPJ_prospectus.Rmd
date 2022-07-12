@@ -6,9 +6,11 @@ thanks: "Thanks to my advisor, James Sallee, and orals chair, Michael Anderson, 
 date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
 lang: en
 output: 
-  word_document: default
+  word_document:
+    df_print: kable
   pdf_document:
     number_sections: yes
+    df_print: kable
 linestretch: 1.5
 fontsize: 
 linkcolor: blue
@@ -88,19 +90,22 @@ Thus far, I have data on projects submitted to ATP rounds 3, 4, and 5. Round 6 i
 <!-- sample sizes, discussion of common project attributes -->
 ```{r atp-sample}
 #| echo=FALSE
-atp[,.(`Projects Submitted` = .N,
-       `Any Bike Improvements` = mean(any_bike_improv),
-       `Adds Bike Lanes` = mean(bike_lanes > 0), 
-       `Improves Intersections/Crossing for Bikes` = mean(bike_intersect),
-       `Expands Bikeshare` = mean(bikeshare), 
-       `Adds Bike Parking` = mean(bike_parking),
-       `Any Pedestrian Improvements` = mean(any_ped_improv),
-       `Improves or Adds Sidewalks` = mean(sidewalk > 0),
-       `Improves Intersections/Crossings for Pedestrians` = mean(ped_intersect),
-       `Adds Curbcuts or Accessibility Improvements` = mean(ped_curbcut),
-       `Any Vehicle Traffic Calming Improvements` = mean(any_veh_calming),
-       `Removed General Travel Lane` = mean(V.Remove.Travel.Ln > 0)), 
-    keyby = .(Project.Cycle)]
+atp_summary <- atp[,.(`Projects Submitted` = .N,
+                      `Any Bike Improvements` = mean(any_bike_improv),
+                      `Adds Bike Lanes` = mean(bike_lanes > 0), 
+                      `Improves Intersections/Crossing for Bikes` = mean(bike_intersect),
+                      `Expands Bikeshare` = mean(bikeshare), 
+                      `Adds Bike Parking` = mean(bike_parking),
+                      `Any Pedestrian Improvements` = mean(any_ped_improv),
+                      `Improves or Adds Sidewalks` = mean(sidewalk > 0),
+                      `Improves Intersections/Crossings for Pedestrians` = mean(ped_intersect),
+                      `Adds Curbcuts or Accessibility Improvements` = mean(ped_curbcut),
+                      `Any Vehicle Traffic Calming Improvements` = mean(any_veh_calming),
+                      `Removed General Travel Lane` = mean(V.Remove.Travel.Ln > 0)), 
+                   keyby = .(Project.Cycle)]
+atp_summary <- as.data.frame(t(atp_summary))
+colnames(atp_summary) <- paste("Cycle", atp_summary["Project.Cycle", ])
+round(atp_summary, 3)
 ```
 
 

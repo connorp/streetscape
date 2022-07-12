@@ -168,3 +168,5 @@ atp[, any_veh_calming := rowSums(.SD) > 0, .SDcols=veh_cols]
 # Other improvements cleaning
 atp[B.Other.Bike.Improv.1 %in% c("-", "0", "N/A", "None"), B.Other.Bike.Improv.1 := NA]
 atp[B.Other.Bike.Improv.2 %in% c("-", "0", "N/A", "None"), B.Other.Bike.Improv.2 := NA]
+
+# look for "sharrows" and see if Class 3 bike lanes are included
