@@ -1,0 +1,16 @@
+project:
+  title: "streetscape"
+  execute-dir: project
+
+date-format: MMM DD, YYYY HH:mm:ss z
+lang: en
+format:
+  pdf:
+    df-print: kable
+    keep-tex: true
+  docx:
+    df-print: kable
+  html:
+    df-print: kable
+    anchor-sections: true
+
