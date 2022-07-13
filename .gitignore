@@ -32,6 +32,8 @@ ATP.html
 *.docx
 *.pptx
 *.pdf
+*.html
+*.tex
 slide_images/*
 missing_scores.csv
 variable_head.csv

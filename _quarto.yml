@@ -1,10 +1,11 @@
 project:
   title: "streetscape"
   execute-dir: project
+  render:
+    - CPJ_prospectus.qmd
 
-date-format: MMM DD, YYYY HH:mm:ss z
+date-format: "MMM DD, YYYY HH:mm:ss z"
 lang: en
-
 df-print: kable
 number-sections: true
 linkcolor: blue
@@ -17,9 +18,9 @@ biblio-style: authoryear
 biblatexoptions: "isbn=false, url=false"
 
 format:
-  pdf:
-    keep-tex: true
+  pdf: default
   docx: default
   html:
     anchor-sections: true
-
+    toc: true
+    toc-depth: 2

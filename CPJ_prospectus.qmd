@@ -9,9 +9,6 @@ format:
   docx:
     toc: true
     toc-depth: 1
-  html: 
-    toc: true
-    toc-depth: 2
 linestretch: 1.5
 link-citations: true
 reference-section-title: References
@@ -20,8 +17,9 @@ abstract: |
   Streetscape design is an important determinant of the spatial equilibrium in urban areas. Projects that reallocate street space between users create winners and losers, and understanding the impacts of these projects, who bears the costs and benefits, and how they lead to spatial resorting is an important policy question as cities pursue these projects. This project uses a discontinuity in funding awards from the California Active Transportation Program to provide quasi-random variation in the installation of bike lanes, and the removal of vehicle travel lanes and on-street parking. Using this variation, I will estimate the impacts of these treatments on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities. 
 ---
 
-```{r setup}
-#| include=FALSE
+```{r}
+#| label: setup
+#| include: false
 library(knitr)
 source("atp_data.R")
 ```
@@ -35,7 +33,7 @@ Even when these changes enhance overall social welfare, they are rarely Pareto i
 
 While some existing observational and engineering research has explored the traffic outcomes of these infrastructure changes [@volker2021], little causally identified economic research exists to explore the broader social impacts, perform welfare analyses, or identify incidence. Existing economic research has focused primarily on the impacts of larger transportation and infrastructure projects such as highway projects and subway expansion [@sleiman2021; @gertler2019; @barwick2021; @gendron-carrier2022; @allen2019; @gonzalez-navarro2016; @tsivanidis2019]. This is the first paper (to my knowledge) that estimates causal impacts of streetscape changes like bike lanes, improved pedestrian infrastructure, and other, smaller-scale projects, and connects them to spatial equilibrium changes.
 
-This research should also be of interest to city planners and transportation departments, who are evaluating changes to their street infrastructure. These projects engender strong feelings both for and against, and both proponents and opponents of a given project point to specific outcomes of a given project as a way to support or oppose its construction. A clear causal identification of the effects of these projects would provide key evidence in these discussions, and help planners and users understand how or whether the positive or negative impacts manifest. In this context, a precisely estimated null effect can be just as valuable to policymakers as a finding of significant impact, as it can demonstrate that a desired goal or a feared impact would not likely come to pass. 
+This research should also be of interest to city planners and transportation departments, who are evaluating changes to their street infrastructure. These projects engender strong feelings both for and against, and both proponents and opponents of a given project point to specific outcomes of a given project as a way to support or oppose its construction. A clear causal identification of the effects of these projects would provide key evidence in these discussions, and help planners and users understand how or whether the positive or negative impacts manifest. In this context, a precisely estimated null effect can be just as valuable to policymakers as a finding of significant impact, as it can demonstrate that a desired goal or a feared impact would not likely come to pass.
 
 To speak to the impacts of these projects, I will pursue several specific research questions. First, what are the impacts of changes to streetscape infrastructure on traffic throughput and speeds, visitors to nearby businesses, and crashes and fatalities? In addition, what are the magnitude and extent of spillovers from these projects, particularly the impacts on traffic, crashes, and business visitation? These first questions together will characterize the set of costs and benefits driven by the projects. 
 
@@ -85,7 +83,7 @@ Thus far, I have data on projects submitted to ATP rounds 3, 4, and 5. Round 6 i
 ```{r}
 #| label: tbl-atp-sample
 #| tbl-cap: Summary of Project Attributes by Application Cycle
-#| echo=FALSE
+#| echo: false
 atp_summary <- atp[,.(`Projects Submitted` = .N,
                       `Any Bike Improvements` = mean(any_bike_improv),
                       `Adds Bike Lanes` = mean(bike_lanes > 0), 
@@ -110,7 +108,7 @@ Table @tbl-bike-lanes explores more deeply the projects that include bike lanes.
 ```{r}
 #| label: tbl-bike-lanes
 #| tbl-cap: Summary of Projects that Construct Bike Lanes
-#| echo=FALSE
+#| echo: false
 atp[bike_lanes > 0, .(`Projects Submitted` = .N,
                       `Total Length (lane-feet)` = round(mean(B.Class.1 + B.Class.2 + B.Class.3 + B.Class.4), 0),
                       `Adds Class 1 Trail` = round(mean(B.Class.1 > 0), 3),
