@@ -3,24 +3,18 @@ title: Streetscape Changes and Infrastructure Equity
 subtitle: Orals Prospectus Draft (DO NOT CIRCULATE)
 author: Connor P. Jackson
 thanks: "Thanks to my advisor, James Sallee, and orals chair, Michael Anderson, for invaluable guidance. Thanks to Reed Walker, Timothy McQuade, Nick Tsivanidis, ARE ERE seminar attendees, and the ARE environment workshop for feedback and suggestions."
-date: "`r format(Sys.time(), '%B %d, %Y - %H:%M %Z')`"
-lang: en
-output: 
-  word_document:
-    df_print: kable
-  pdf_document:
-    number_sections: yes
-    df_print: kable
+date: now
+format:
+  pdf: default
+  docx:
+    toc: true
+    toc-depth: 1
+  html: 
+    toc: true
+    toc-depth: 2
 linestretch: 1.5
-fontsize: 
-linkcolor: blue
-urlcolor: blue
-bibliography: "/Users/connor/Zotero/My_Library.json"
 link-citations: true
 reference-section-title: References
-biblio-title: References
-biblio-style: authoryear
-biblatexoptions: "isbn=false, url=false"
 pdfa: 2a
 abstract: |
   Streetscape design is an important determinant of the spatial equilibrium in urban areas. Projects that reallocate street space between users create winners and losers, and understanding the impacts of these projects, who bears the costs and benefits, and how they lead to spatial resorting is an important policy question as cities pursue these projects. This project uses a discontinuity in funding awards from the California Active Transportation Program to provide quasi-random variation in the installation of bike lanes, and the removal of vehicle travel lanes and on-street parking. Using this variation, I will estimate the impacts of these treatments on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities. 

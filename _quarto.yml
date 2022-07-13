@@ -4,13 +4,22 @@ project:
 
 date-format: MMM DD, YYYY HH:mm:ss z
 lang: en
+
+df-print: kable
+number-sections: true
+linkcolor: blue
+urlcolor: blue
+
+cite-method: citeproc
+bibliography: "/Users/connor/Zotero/My_Library.json"
+biblio-title: References
+biblio-style: authoryear
+biblatexoptions: "isbn=false, url=false"
+
 format:
   pdf:
-    df-print: kable
     keep-tex: true
-  docx:
-    df-print: kable
+  docx: default
   html:
-    df-print: kable
     anchor-sections: true
 
