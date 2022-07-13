@@ -108,13 +108,17 @@ round(atp_summary, 3)
 #| label: tbl-bike-lanes
 #| tbl-cap: Summary of Projects that Construct Bike Lanes
 #| echo: false
-atp[bike_lanes > 0, .(`Projects Submitted` = .N,
-                      `Total Length (lane-feet)` = round(mean(B.Class.1 + B.Class.2 + B.Class.3 + B.Class.4), 0),
-                      `Adds Class 1 Trail` = round(mean(B.Class.1 > 0), 3),
-                      `Adds Class 2 Lanes` = round(mean(B.Class.2 > 0), 3),
-                      `Adds Class 3 Route (Sharrows)` = round(mean(B.Class.3 > 0), 3),
-                      `Adds Class 4 Cycletrack` = round(mean(B.Class.4 > 0), 3)),
-    keyby = .(Project.Cycle)]
+bikelanes_sum <- atp[bike_lanes > 0, .(`Projects Submitted` = .N,
+                                       `Total Length (lane-feet)` = round(mean(B.Class.1 + B.Class.2 + 
+                                                                                 B.Class.3 + B.Class.4), 0),
+                                       `Adds Class 1 Trail` = round(mean(B.Class.1 > 0), 3),
+                                       `Adds Class 2 Lanes` = round(mean(B.Class.2 > 0), 3),
+                                       `Adds Class 3 Route (Sharrows)` = round(mean(B.Class.3 > 0), 3),
+                                       `Adds Class 4 Cycletrack` = round(mean(B.Class.4 > 0), 3)),
+                     keyby = .(Project.Cycle)]
+bikelanes_sum <- as.data.frame(t(bikelanes_sum))
+colnames(bikelanes_sum) <- paste("Cycle", bikelanes_sum["Project.Cycle", ])
+bikelanes_sum
 ```
 
 Using the ATP projects as the sample does imply some potential sample selection issues, some of which influence the interpretation of the estimated effects, while others may threaten the integrity of the research design. Because this is a sample of projects which localities have actively pursued, the treatment effect might differ from an average treatment effect for a bike lane installed on a randomly chosen street. The localities and streets observed in this dataset might quantitatively differ from a random sample of California streets. Localities which are applying for these funds might already be in the process of gentrifying prior to the construction of the streetscape infrastructure changes, or have other differences from localities which did not apply. While these selection concerns impact the external validity of the results, and how one should interpret the estimated coefficients, it should not lead to bias in the estimates, since identification is from project funding at the score threshold, not whether they submitted an application. 
@@ -131,7 +135,7 @@ The other data concern is imperfect treatment compliance. If a project is denied
 
 To estimate the outcomes of these infrastructure projects, I will use several different data sources. The first is data on visitation to business and other points of interest from [SafeGraph](https://safegraph.com/), a data company that aggregates anonymized location data from numerous applications in order to provide insights about physical places, via the SafeGraph Community. To enhance privacy, SafeGraph excludes census block group information if fewer than five devices visited an establishment in a month from a given census block group. SafeGraph define points of interest (POI), which are specific physical locations that a person might find interesting. POIs can be any physical place humans can visit except single-family homes. SafeGraph categorizes these POIs using the North American Industry Classification System (NAICS) developed by the US Census Bureau to identify different types and purposes of places. The SafeGraph data provide weekly and monthly counts of visitors to points of interest which I can match to the locations of proposed streetscape projects. The counts are based on a sample of mobile phone users, and thus are normalized and weighted to reflect the population as a whole [@safegraph2022]. 
 
-For traffic outcomes, I will use data from [Streetlight Data](https://www.streetlightdata.com). Their data provide traffic speeds and throughput on specified road segments by day of month or hour of day, averaged monthly or annually. Traffic crash and fatality data will be from the Transportation Injury Mapping System (TIMS) [@TIMS2022], which sources its data from California's [Statewide Integrated Traffic Records System (SWITRS)](https://www.chp.ca.gov/programs-services/services-information/switrs-internet-statewide-integrated-traffic-records-system). SWITRS records all crashes reported to the California Highway Patrol, including those reported by local agencies and city police departments. It contains geocoded data mapping all reported crashes in California, including the location, time, involved vehicles, severity, and the number of people injured or killed. 
+For traffic outcomes, I will use data from [Streetlight Data](https://www.streetlightdata.com). Their data provide traffic speeds and throughput on specified road segments by day of month or hour of day, averaged monthly or annually. Traffic crash and fatality data will be from the Transportation Injury Mapping System (TIMS) [@TIMS2022], which sources its data from California's [Statewide Integrated Traffic Records System (SWITRS)](https://www.chp.ca.gov/programs-services/services-information/switrs-internet-statewide-integrated-traffic-records-system). SWITRS records all crashes reported to the California Highway Patrol, including those reported by local agencies and city police departments. It contains geocoded data mapping all reported crashes in California, including the location, time, involved vehicles, severity, and the number of people injured or killed.
 
 In addition, I will ultimately be exploring outcomes on housing, land values, and spatial sorting equilibria. I have yet to identify a specific dataset or datasets to use for these outcomes, but hope to be able to observe land values and real estate prices, commercial rental rates, and residential moves or displacement.
 
