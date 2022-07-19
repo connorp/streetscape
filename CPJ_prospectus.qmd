@@ -20,6 +20,11 @@ abstract: |
 ```{r}
 #| label: setup
 #| include: false
+# library(rdrobust)
+# library(rdlocrand)
+library(rddensity)
+# library(rdmulti)
+# library(rdpower)
 library(knitr)
 source("atp_data.R")
 ```
@@ -129,7 +134,11 @@ There are two other data concerns that need to be handled. First is the possibil
 
 The other data concern is imperfect treatment compliance. If a project is denied funding, the applicant locality could decide to allocate other funds to the project, and construct it anyway. Conversely, a project awarded funding could face public opposition and fail to be constructed. As described by @angrist1996, this imperfect compliance alters the interpretation of the estimated coefficients, which are now local average treatment effects (LATE), or the average treatment effect on compliers. To estimate these effects, the research design will use a fuzzy RD to instrument for treatment status. This nuance is important, as the always-takers could be crowding out other amenities by reallocating funding to the project, which could distort the treatment effect. 
 
-<!-- Figure out how two-step funding process works (do most MPOs let CTC administer?), whether that impacts RD design -->
+<!-- Figure out how two-step funding process works (do most MPOs let CTC administer?), whether that impacts RD design
+
+KCOG and StanCOG both use statewide scores, but sometimes they get too little funding to fund their highest ranked project. How to handle them? Just lump them in with the fuzziness?
+
+MPOs with few applications/awards: TMPO, StanCOG, TCAG, SJCOG. KCOG is borderline. Maybe drop the first four, and let KCOG just be in the statewide pool and pretend there isn't an MPO pool? Since it's so unpredictable? -->
 
 ## Outcome Data
 
@@ -153,9 +162,23 @@ Estimating unbiased causal impacts of streetscape infrastructure changes is chal
 
 The ATP awards funding to streetscape projects with scores above a threshold defined by the funding allocated by the California legislature. Applicants can manipulate their application packets in order to yield higher scores based on the publicly announced rubric. However, many questions are qualitative, and leave room for the discretion of the application evaluators. This discretion implies that applicants do not have precise control over their scores. In particular, they do not have precise control over their scores around the threshold, since the threshold is not known until after projects have been submitted and scored. In addition, scores range from 0 to 100, with any integer score possible in that range, and half-integer scores appearing occasionally. While the distribution of scores is not strictly continuous, this high density of potential values can be safely approximated as a continuous density of scores from 0 to 100. As described by @lee2010, taken together, this imprecise control over an approximately continuous running variable (the score) implies that the treatment is as good as randomly assigned around the cutoff. This local random assignment implies that we can identify a treatment effect using the discontinuity gap at the cutoff.
 
+<!-- Try using the discrete running variable approach? -->
+
 Because the treatment probability does not sharply jump from 0 to 1 at the threshold—funded projects could fail to be constructed, and denied projects could be constructed using other funds—this research design will use a "fuzzy" RD approach. As a result, the treatment effect identified will be a weighted local average treatment effect (LATE). The LATE estimates the average treatment effect for compliers (in the language of @angrist1996): those who construct the project if funded, and those who do not construct the project if not funded. The weights for this weighted LATE are the ex-ante likelihood that an applicant's score is close to the threshold (conditional on observables). The LATE estimation requires two additional assumptions: monotonicity (no defiers who would construct the project if denied funding, but would not construct if awarded funding) and excludability (crossing the score threshold can only impact the outcome via the treatment). While these assumptions cannot be proven to hold, I can provide evidence to support them, and the broader validity of the research design. 
 
 To verify the validity of the research design in this setting, I first create a series of graphs over the running variable, to visually inspect the data for violations of the research design: in particular, bunching or manipulation of the running variable, and discontinuities in the covariates. In all of these graphs, I will use a binned scatter plot, ensuring that the funding threshold score coincides with a bin break. To choose the bin bandwidth, I will use the approaches described in @lee2010 [section 4.1] to balance sufficient precision and avoiding bias in the degree of smoothing provided. The two approaches: a cross-validation approach developed by @ludwig2007 which minimizes the "leave one out" mean square prediction error, and a test for within-bin relationships between the running variable and the outcome variable. Once a bandwidth (or series of bandwidths, for robustness) has been chosen, I use it to create a series of graphs. 
+
+```{r}
+# quadratic polynomial approximated density estimator
+# cubic polynomial approximated bias-corrected density estimator
+# triangular kernel
+# bandwidth (h) automatically chosen by rdbwdensity()
+# bandwith selected separately left and right of the cutoff
+density_est <- rddensity(atp[!is.na(score_norm), score_norm], c=0, bwselect = "each", binoWStep = 0.5)
+density_test <- rdplotdensity(density_est, atp[!is.na(score_norm), score_norm], 
+                              type="both", histFillShade = 0.4, plotGrid="qs")
+```
+
 
 The first is a histogram of the running variable (project score), which will help detect discontinuities in the running variable around the treatment threshold, indicating that applicants are able to manipulate their probability of treatment discontinuously around the threshold. This graph will be paired with a test for discontinuity in the running variable density, following @mccrary2008. Next I will present plots of the relevant covariates over the running variable across the funding threshold, to detect discontinuities in the covariates, again a sign of manipulation or selection into treatment. Covariates should vary continuously across the treatment threshold, and I will pair this graph with a joint test of the impact of the threshold on the covariates, using a Seemingly Unrelated Regression (SUR) and $\chi^2$ test [@lee2010 section 4.4.2], and may also pursue placebo tests, in accordance with @imbens2008. Next, I will graph the probability of treatment against the running variable across the threshold. Because this research design is a fuzzy RD, there will be some nonzero probability of treatment below the threshold, and units above the threshold may have treatment probability below 1. This graph will show the magnitude in the jump in treatment probability across the threshold. Finally, I will present my main outcome plots, graphing the outcome variable(s) along the running variable, across the treatment threshold. These binned scatter plots will be accompanied by a quadratic fit polynomial on either side of the threshold (leaving out higher order terms, per @gelman2019). These plots should demonstrate the treatment effect (or lack thereof) of streetscape improvements on the outcome variables of interest. 
 
