@@ -5,6 +5,8 @@ A2.Info.Proj.Loc
 county
 mpo
 A2.Info.Proj.Name
+A2.Proj.Scope.Summary
+A2.Info.Proj.Descr
 A3.Proj.Type
 A5.Const.End.Date
 B.Class.1
@@ -79,3 +81,5 @@ V.Other.Traffic.Calming.Imprv.2
 V.Other.Traffic.Calming.Qty.2
 score
 funding
+cost
+award_req

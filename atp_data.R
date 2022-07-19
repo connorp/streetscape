@@ -75,6 +75,7 @@ scores4[Final.Score == "N/A", Final.Score := NA]
 scores4[, Final.Score := as.numeric(Final.Score)]
 scores5[Final.Score %in% c("INELIGIBLE", "WITHDRAWN"), Final.Score := NA]
 scores5[, Final.Score := as.numeric(Final.Score)]
+setnames(scores5, "ATP.Funding", "ATP..Request")
 
 # Cycle 3 scores have to be handled differently because they don't have 
 # application IDs attached
@@ -110,9 +111,11 @@ setnames(scores3, c("Applicant", "Project.Title"),
 setkey(scores3, Project.Cycle, A1.Imp.Agcy.Name, A2.Info.Proj.Name)
 
 # merge the scores (and county) into the data
-atp[scores, `:=`(score = Final.Score, county = County, funding=funded), 
+atp[scores, `:=`(score = Final.Score, county = County, funding=funded, 
+                 cost=Total.Project.Cost, award_req=ATP..Request), 
     on=c("Project.Cycle", "Project.App.Id")]
-atp[scores3, `:=`(score = Final.Score, county = County, funding=funded), 
+atp[scores3, `:=`(score = Final.Score, county = County, funding=funded, 
+                  cost=Total.Project.Cost, award_req=Total.Fund.Request), 
     on=c("Project.Cycle", "A1.Imp.Agcy.Name", "A2.Info.Proj.Name")]
 
 # Identify MPO-funded projects from Cycle 4 (statewide and SUR funded projects,
@@ -141,7 +144,7 @@ infra_projects <- c("Infrastructure (I)", "Combination (I/NI)",
                     "Infrastructure + NI - Small", "Infrastructure - Large", 
                     "Infrastructure - Medium", "Infrastructure - Small")
 analysis_cols <- readLines("columns_to_use.txt")
-atp <- atp[A3.Proj.Type %in% infra_projects, ..analysis_cols]
+atp <- atp[A3.Proj.Type %in% infra_projects & !is.na(score), ..analysis_cols]
 
 # include Class 1 bike trails in this metric for now
 atp[, bike_lanes := rowSums(.SD), .SDcols=c("B.Class.1", "B.Class.2", "B.Class.3", "B.Class.4")]

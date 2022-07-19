@@ -91,6 +91,9 @@ Thus far, I have data on projects submitted to ATP rounds 3, 4, and 5. Round 6 i
 #| tbl-cap: Summary of Project Attributes by Application Cycle
 #| echo: false
 atp_summary <- atp[,.(`Projects Submitted` = .N,
+                      `Projects Funded` = sum(funded),
+                      `Average Project Cost ($1000)` = mean(cost),
+                      `Average Award Requested ($1000)` = mean(award_req),
                       `Any Bike Improvements` = mean(any_bike_improv),
                       `Adds Bike Lanes` = mean(bike_lanes > 0), 
                       `Improves Intersections/Crossing for Bikes` = mean(bike_intersect),
@@ -106,7 +109,7 @@ atp_summary <- atp[,.(`Projects Submitted` = .N,
                    keyby = .(Project.Cycle)]
 atp_summary <- as.data.frame(t(atp_summary))
 colnames(atp_summary) <- paste("Cycle", atp_summary["Project.Cycle", ])
-round(atp_summary, 3)
+round(atp_summary[row.names(atp_summary) != "Project.Cycle", ], 3)
 ```
 
 @tbl-bike-lanes explores more deeply the projects that include bike lanes. The average project that includes bike lanes builds approximately 2 lane-miles (i.e. one mile of road with bike lanes in both directions). The most common style is class 2 bicycle lanes—bike lanes on the roadway demarcated by painted lane lines. Class 4 cycletracks, also known as protected bike lanes, are less common, but are increasing in use over time. These bike lanes place some form of physical barrier, such as concrete curbs or bollards, planters, or parked cars, between bicycles and automobile traffic. Class 3 bicycle routes are designated roadways for cycle travel, the infrastructure on which is generally limited to signage and pavement markings indicating the presence of bicycle traffic (commonly referred to as "sharrows"). Class 1 trails are separated bicycle paths for cyclist travel, not incorporated into the street or roadway. 
@@ -125,7 +128,7 @@ bikelanes_sum <- atp[bike_lanes > 0, .(`Projects Submitted` = .N,
                      keyby = .(Project.Cycle)]
 bikelanes_sum <- as.data.frame(t(bikelanes_sum))
 colnames(bikelanes_sum) <- paste("Cycle", bikelanes_sum["Project.Cycle", ])
-bikelanes_sum
+bikelanes_sum[row.names(bikelanes_sum) != "Project.Cycle", ]
 ```
 
 Using the ATP projects as the sample does imply some potential sample selection issues, some of which influence the interpretation of the estimated effects, while others may threaten the integrity of the research design. Because this is a sample of projects which localities have actively pursued, the treatment effect might differ from an average treatment effect for a bike lane installed on a randomly chosen street. The localities and streets observed in this dataset might quantitatively differ from a random sample of California streets. Localities which are applying for these funds might already be in the process of gentrifying prior to the construction of the streetscape infrastructure changes, or have other differences from localities which did not apply. While these selection concerns impact the external validity of the results, and how one should interpret the estimated coefficients, it should not lead to bias in the estimates, since identification is from project funding at the score threshold, not whether they submitted an application. 
