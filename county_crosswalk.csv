@@ -1,51 +1,59 @@
-Co,County
-ALA,Alameda
-BUT,Butte
-CAL,Calaveras
-CC,Contra Costa
-DN,Del Norte
-ED,El Dorado
-FRE,Fresno
-HUM,Humbolt
-IMP,Imperial
-INY,Inyo
-KER,Kern
-Kings,Kings
-LA,Los Angeles
-LAK,Lake
-LAS,Lassen
-MAD,Madera
-MEN,Mendocino
-MER,Merced
-MON,Monterey
-MONO,Mono
-MRN,Marin
-NAP,Napa
-NEV,Nevada
-ORA,Orange
-PLA,Placer
-RIV,Riverside
-SAC,Sacramento
-SB,Santa Barbara
-SBD,San Bernardino
-SBO,San Benito
-SCL,Santa Clara
-SCR,Santa Cruz
-SD,San Diego
-SF,San Francisco
-SHA,Shasta
-SIS,Siskiyou
-SJ,San Joaquin
-SLO,San Luis Obispo
-SM,San Mateo
-SOL,Solano
-SON,Sonoma
-STA,Stanislaus
-SUT,Sutter
-T EH,Tehama
-TRI,Trinity
-TUL,Tulare
-TUO,Tuolumne
-VEN,Ventura
-YOL,Yolo
-YUB,Yuba
+Co,County,MPO
+ALA,Alameda,MTC
+,Alpine,
+,Amador,
+BUT,Butte,
+CAL,Calaveras,
+,Colusa,
+CC,Contra Costa,MTC
+DN,Del Norte,
+ED,El Dorado,SACOG or TMPO????
+FRE,Fresno,FCOG
+,Glenn,
+HUM,Humboldt,
+IMP,Imperial,SCAG
+INY,Inyo,
+KER,Kern,KCOG
+Kings,Kings,
+LA,Los Angeles,SCAG
+LAK,Lake,
+LAS,Lassen,
+MAD,Madera,
+MEN,Mendocino,
+,Mariposa,
+MER,Merced,
+,Modoc,
+MON,Monterey,
+MONO,Mono,
+MRN,Marin,MTC
+NAP,Napa,MTC
+NEV,Nevada,
+ORA,Orange,SCAG
+PLA,Placer,SACOG or TMPO????
+,Plumas,
+RIV,Riverside,SCAG
+SAC,Sacramento,SACOG
+SB,Santa Barbara,
+SBD,San Bernardino,SCAG
+SBO,San Benito,
+SCL,Santa Clara,MTC
+SCR,Santa Cruz,
+SD,San Diego,SANDAG
+SF,San Francisco,MTC
+SHA,Shasta,
+,Sierra,
+SIS,Siskiyou,
+SJ,San Joaquin,SJCOG
+SLO,San Luis Obispo,
+SM,San Mateo,MTC
+SOL,Solano,MTC
+SON,Sonoma,MTC
+STA,Stanislaus,StanCOG
+SUT,Sutter,SACOG
+T EH,Tehama,
+TRI,Trinity,
+TUL,Tulare,TCAG
+TUO,Tuolumne,
+VEN,Ventura,SCAG
+YOL,Yolo,SACOG
+YUB,Yuba,SACOG

@@ -94,7 +94,10 @@ scores[, Application.ID := gsub("4-Sunnyvale-1", "4-Sunnyvale-2", Application.ID
 setnames(scores, "Application.ID", "Project.App.Id")
 setkey(scores, Project.Cycle, Project.App.Id)
 
-scores3 <- merge(scores3, fread("county_crosswalk.csv"), on = "Co")
+county_crosswalk <- fread("county_crosswalk.csv", na.strings = "")
+county_crosswalk[is.na(MPO), MPO := "small_urban_rural"]
+
+scores3 <- merge(scores3, county_crosswalk, on = "Co")
 scores3[, Co := NULL]
 
 # Cycle 3 scores have to be handled differently because they don't have 
