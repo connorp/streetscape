@@ -25,6 +25,8 @@ abstract: |
 library(rddensity)
 # library(rdmulti)
 # library(rdpower)
+library(ggplot2)
+library(gridExtra)
 library(knitr)
 source("atp_data.R")
 ```
@@ -169,14 +171,48 @@ Because the treatment probability does not sharply jump from 0 to 1 at the thres
 To verify the validity of the research design in this setting, I first create a series of graphs over the running variable, to visually inspect the data for violations of the research design: in particular, bunching or manipulation of the running variable, and discontinuities in the covariates. In all of these graphs, I will use a binned scatter plot, ensuring that the funding threshold score coincides with a bin break. To choose the bin bandwidth, I will use the approaches described in @lee2010 [section 4.1] to balance sufficient precision and avoiding bias in the degree of smoothing provided. The two approaches: a cross-validation approach developed by @ludwig2007 which minimizes the "leave one out" mean square prediction error, and a test for within-bin relationships between the running variable and the outcome variable. Once a bandwidth (or series of bandwidths, for robustness) has been chosen, I use it to create a series of graphs. 
 
 ```{r}
+#| label: density-histograms
+#| fig-cap: Running variable density histograms with estimated quadratic polynomial fits on either side of the threshold. Pictured separately for each funding cycle, as well as pooled. The scores are normalized to the cutoff at 0. 
+#| echo: false
 # quadratic polynomial approximated density estimator
-# cubic polynomial approximated bias-corrected density estimator
+# cubic polynomial approximated bias-corrected density estimator (for CIs)
 # triangular kernel
-# bandwidth (h) automatically chosen by rdbwdensity()
-# bandwith selected separately left and right of the cutoff
-density_est <- rddensity(atp[!is.na(score_norm), score_norm], c=0, bwselect = "each", binoWStep = 0.5)
-density_test <- rdplotdensity(density_est, atp[!is.na(score_norm), score_norm], 
-                              type="both", histFillShade = 0.4, plotGrid="qs")
+# bandwidth (h) chosen by rdbwdensity(), separately left and right of the cutoff
+density_tests <- function(scores_norm, title) {
+  density_est <- rddensity(scores_norm, c=0, bwselect="each", binoWStep=0.5)
+  density_plot <- rdplotdensity(density_est, scores_norm, type="both", 
+                                histFillShade=0.4, plotGrid="qs", printPlot=FALSE,
+                                xlabel="Normalized Score",
+                                ylabel="Density",
+                                title=title)
+  return(list(density_obj=density_est, density_plot=density_plot, round=title))
+}
+
+get_plot <- function(obj) {
+  return(obj$density_plot$Estplot)
+}
+
+round_density <- lapply(atp[, sort(unique(Project.Cycle))], 
+                        function(i) density_tests(atp[(!is.na(score_norm) & 
+                                                         Project.Cycle == i), score_norm], 
+                                                  paste("Cycle", i)))
+pooled_density <- density_tests(atp[!is.na(score_norm), score_norm], "Pooled")
+
+grid.arrange(get_plot(pooled_density), get_plot(round_density[[1]]),
+             get_plot(round_density[[2]]), get_plot(round_density[[3]]), ncol=2)
+```
+
+```{r}
+#| label: McCrary-tests
+#| echo: false
+#| tbl-cap: t-statistics and associated p-values of McCrary (2008) manipulation tests, for each cycle separately and for the pooled projects. 
+extract_mccrary <- function(obj) {
+  test <- obj$density_obj$test
+  return(c(round=obj$round, tstat=round(test$t_jk, 4), pval=round(test$p_jk, 4)))
+}
+
+data.table(rbind(extract_mccrary(pooled_density), 
+                 t(sapply(round_density, extract_mccrary))))
 ```
 
 
