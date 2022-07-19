@@ -13,6 +13,7 @@ atp_data_excel <- paste0(data_folder, "ATP/ATP Project Data_Main.xls")
 atp_scores_3 <- paste0(data_folder, "ATP/cycle-3-scores.xlsx")
 atp_scores_4 <- paste0(data_folder, "ATP/cycle-4-scores.xlsx")
 atp_scores_5 <- paste0(data_folder, "ATP/cycle-5-scores.xlsx")
+atp_MPO_proj_4 <- paste0(data_folder, "ATP/Cycle 4/cycle_4_MPO_projects.xlsx")
 
 
 atp <- read_excel(atp_data_excel, sheet = "MainData", .name_repair = "universal")
@@ -109,10 +110,25 @@ setnames(scores3, c("Applicant", "Project.Title"),
 setkey(scores3, Project.Cycle, A1.Imp.Agcy.Name, A2.Info.Proj.Name)
 
 # merge the scores (and county) into the data
-atp[scores, `:=`(score = Final.Score, county = County), 
+atp[scores, `:=`(score = Final.Score, county = County, funding=funded), 
     on=c("Project.Cycle", "Project.App.Id")]
-atp[scores3, `:=`(score = Final.Score, county = County), 
+atp[scores3, `:=`(score = Final.Score, county = County, funding=funded), 
     on=c("Project.Cycle", "A1.Imp.Agcy.Name", "A2.Info.Proj.Name")]
+
+# Identify MPO-funded projects from Cycle 4 (statewide and SUR funded projects,
+# as well as Cycles 3 and 5 MPO rounds, are identified in the main scores spreadsheets)
+mpo4 <- read_excel(atp_MPO_proj_4, .name_repair = "universal", na = c("N/A", "-"))
+setDT(mpo4)
+mpo4[, Application.ID := gsub("[^[:alnum:]-]*$", "", Application.ID)]  # Drop inappropriate trailing characters
+mpo4[, Application.ID := gsub("\\r\\n", " ", Application.ID)]  # remove line breaks
+mpo4[, Application.ID := gsub("Department", "Dept.", Application.ID, fixed = TRUE)]
+mpo4[, Application.ID := gsub("Los Angeles", "LA", Application.ID, fixed = TRUE)]
+mpo4[, Project.Cycle := 4L]
+setnames(mpo4, "Application.ID", "Project.App.Id")
+setkey(mpo4, Project.Cycle, Project.App.Id)
+atp[mpo4, funding := MPO, on=c("Project.Cycle", "Project.App.Id")]
+
+atp[county_crosswalk[, .(county=County, MPO)], mpo := MPO, on = "county"]
 
 # look for mismatched application IDs
 # writeLines(sort(scores3[!atp3, paste(Applicant, Project.Title, sep=":\t")]), "scores_names.txt")
@@ -173,3 +189,33 @@ atp[B.Other.Bike.Improv.1 %in% c("-", "0", "N/A", "None"), B.Other.Bike.Improv.1
 atp[B.Other.Bike.Improv.2 %in% c("-", "0", "N/A", "None"), B.Other.Bike.Improv.2 := NA]
 
 # look for "sharrows" and see if Class 3 bike lanes are included
+
+## define approved projects
+atp[, funded := !is.na(funding)]
+setnames(atp, "funding", "funding_component")
+atp[is.na(funding_component), funding_component := "unfunded"]
+atp[, uses_state_score := funding_component %in% c("statewide", "small_urban_rural", 
+                                                   "KCOG", "StanCOG", "TMPO")]
+atp[, funded_statewide := funding_component == "statewide"]
+atp[is.na(funded_statewide), funded_statewide := FALSE]
+
+thresholds <- fread("thresholds.csv")
+statewide_thresholds <- tibble::deframe(thresholds[funding_component == "statewide", 
+                                                   .(Project.Cycle, threshold)])
+sur_thresholds <- tibble::deframe(thresholds[funding_component == "small_urban_rural", 
+                                             .(Project.Cycle, threshold)])
+mpo_thresholds <- thresholds[!(funding_component %in% c("statewide", "small_urban_rural")), 
+                             .(Project.Cycle, mpo=funding_component, threshold)]
+
+# Ties are broken by project readiness, score on highest value question. Identify
+# tiebreaker losers by reducing their scores by 0.25. The ranking stays the same,
+# but they are now on the correct side of the threshold. 
+# Statewide tiebreaker losers:
+atp[(score == statewide_thresholds[as.character(Project.Cycle)] & 
+      funding_component != "statewide"), score := score - 0.25]
+# Small urban/rural tiebreaker losers:
+atp[(score == sur_thresholds[as.character(Project.Cycle)] & mpo == "small_urban_rural" & 
+     funding_component == "unfunded"), score := score - 0.25]
+
+# Create normalized statewide scores
+atp[, score_norm := score - statewide_thresholds[as.character(Project.Cycle)]]
