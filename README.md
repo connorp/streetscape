@@ -2,7 +2,7 @@
 
 ## Milestones
 
-- May 15: orals scheduling deadline
+- August 1: orals
 
 ## To-Dos
 
@@ -19,17 +19,20 @@
 
 - [X] Define the unit of analysis
 - [ ] Understand the available power
-	- Is there enough useable projects in the ATP program?
+	- Are there enough useable projects in the ATP program?
 	- Are there [other programs](https://docs.google.com/spreadsheets/d/1TxLO-5f8JYMfYBA36-aJs-UnfBgDcFMiNtmClkDimLU/edit#gid=0) that can be used or combined for the same set of projects?
-- [ ] define the econometric approach
+- [ ] understand MPO funding component; whether their processes can fit into a multi-score/multi-cutoff RD framework
+- [ ] Dig more into continuity framework vs. local randomization framework for RD (relevant for discrete running variables)
 
 ### Data Work
 
 #### ATP Data
 
-- [ ] Get data on the unfunded projects
-- [ ] Download and merge the other years' projects
-- [ ] Merge in project scores
+- [X] Get data on the unfunded projects
+- [X] Download and merge the other years' projects
+- [X] Merge in project scores
+- [ ] Get project location data (from application packets)
+- [ ] Get data from rounds 1 and 2
 - [ ] Get data on project status and actual construction dates
 - [ ] Define GIS/location data for each project
 
@@ -44,6 +47,7 @@
 - [ ] Access TIMS/SWITRS crash data
 - [ ] Access traffic data
 	- [X] Contact Streetlight about data access
+	- [ ] Decide what traffic data I'm using
 	- [ ] Sign data access agreement with Streetlight
 	- [ ] Download and explore traffic data
 - [ ] Access hospital data
@@ -64,12 +68,12 @@
 ### Building Towards ERE/Orals
 
 - [X] Summarize causal question(s)
-- [ ] Develop summary tables for infrastructure projects and outcome data
+- [X] Develop summary tables for infrastructure projects and outcome data
 - [X] Use a single project as a presentation case study
-- [ ] Literature review
+- [X] Literature review
 	- Focus on tying into the key economic question, and its place in that literature
 - [X] Summarize the scope of funding programs that can be used for identification, power calculations
-- [ ] Identify an external committee member
+- [X] Identify an external committee member
 
 ### Orals Components
 
