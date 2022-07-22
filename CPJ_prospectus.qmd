@@ -262,16 +262,16 @@ balance_windows <- binomial_test_windows[pval > 0.05, .(window=max(window_halfwi
 ```
 
 
-@tbl-balance-tables provide some information about the balance of project attributes pooled across all `r atp[, english(uniqueN(Project.Cycle))]` project cycles, including average values and two-sample t-statistics. @tbl-cutoff describes the balance of project attributes for all projects above and below the statewide funding threshold. @tbl-window also looks above and below the statewide funding cutoff, but only within a window of `r balance_windows[round == "Pooled", window]` points on either side of the threshold score. This window was chosen using a set of nested binomial tests for density balance on either side of the threshold score. Finally, @tbl-funded compares all unfunded projects to all funded projects, regardless of their score. 
+@tbl-balance-tables provide some information about the balance of project attributes pooled across all `r atp[, english(uniqueN(Project.Cycle))]` project cycles, including average values and two-sample t-statistics. @tbl-balance-tables-1 describes the balance of project attributes for all projects above and below the statewide funding threshold. @tbl-balance-tables-2 also looks above and below the statewide funding cutoff, but only within a window of `r balance_windows[round == "Pooled", window]` points on either side of the threshold score. This window was chosen using a set of nested binomial tests for density balance on either side of the threshold score. Finally, @tbl-balance-tables-3 compares all unfunded projects to all funded projects, regardless of their score. 
 
 ```{r}
 #| label: tbl-balance-tables
 #| echo: false
 #| tbl-cap: Balance tables of project attributes 
 #| tbl-subcap: 
-#|   - All projects, above and below the statewide funding cutoff. {#tbl-cutoff}
-#|   - Projects within a normalized score of ±2.75 of the statewide funding cutoff. {#tbl-window}
-#|   - All projects, selected for funding or not selected for funding (in any funding component) {#tbl-funded}
+#|   - All projects, above and below the statewide funding cutoff.
+#|   - Projects within a normalized score of ±2.75 of the statewide funding cutoff.
+#|   - All projects, selected for funding or not selected for funding (in any funding component)
 balance_cols <- c("cost", "award_req", "any_bike_improv", "bike_lanes", 
                   "bike_intersect", "any_ped_improv", "sidewalk", "ped_intersect", 
                   "ped_curbcut", "any_veh_calming")
