@@ -28,7 +28,9 @@ library(rddensity)
 library(ggplot2)
 library(gridExtra)
 library(knitr)
+library(english)
 source("atp_data.R")
+options(knitr.kable.NA = '')
 ```
 
 
@@ -245,8 +247,97 @@ setnames(mccrary_res, c("Funding Cycle", "Test Statistic (Chi-Squared)", "p-valu
 mccrary_res
 ```
 
+```{r}
+#| label: binomial-tests
+#| include: false
+bino_tests <- function(dens_obj) {
+  bino_dt <- as.data.table(data.frame(dens_obj$density_obj$bino))
+  return(bino_dt[, .(round=dens_obj$round, window_halfwidth=LeftWindow, LeftN, RightN, pval)])
+}
 
-Next I will present plots of the relevant covariates over the running variable across the funding threshold, to detect discontinuities in the covariates, again a sign of manipulation or selection into treatment. Covariates should vary continuously across the treatment threshold, and I will pair this graph with a joint test of the impact of the threshold on the covariates, using a Seemingly Unrelated Regression (SUR) and $\chi^2$ test [@lee2010 section 4.4.2], and may also pursue placebo tests, in accordance with @imbens2008. Next, I will graph the probability of treatment against the running variable across the threshold. Because this research design is a fuzzy RD, there will be some nonzero probability of treatment below the threshold, and units above the threshold may have treatment probability below 1. This graph will show the magnitude in the jump in treatment probability across the threshold. Finally, I will present my main outcome plots, graphing the outcome variable(s) along the running variable, across the treatment threshold. These binned scatter plots will be accompanied by a quadratic fit polynomial on either side of the threshold (leaving out higher order terms, per @gelman2019). These plots should demonstrate the treatment effect (or lack thereof) of streetscape improvements on the outcome variables of interest. 
+binomial_test_windows <- rbind(bino_tests(pooled_density), 
+                               rbindlist(lapply(round_density, bino_tests)))
+balance_windows <- binomial_test_windows[pval > 0.05, .(window=max(window_halfwidth)), 
+                                         by=.(round)]
+```
+
+
+@tbl-balance-tables provide some information about the balance of project attributes pooled across all `r atp[, english(uniqueN(Project.Cycle))]` project cycles, including average values and two-sample t-statistics. @tbl-cutoff describes the balance of project attributes for all projects above and below the statewide funding threshold. @tbl-window also looks above and below the statewide funding cutoff, but only within a window of `r balance_windows[round == "Pooled", window]` points on either side of the threshold score. This window was chosen using a set of nested binomial tests for density balance on either side of the threshold score. Finally, @tbl-funded compares all unfunded projects to all funded projects, regardless of their score. 
+
+```{r}
+#| label: tbl-balance-tables
+#| echo: false
+#| tbl-cap: Balance tables of project attributes 
+#| tbl-subcap: 
+#|   - All projects, above and below the statewide funding cutoff. {#tbl-cutoff}
+#|   - Projects within a normalized score of ±2.75 of the statewide funding cutoff. {#tbl-window}
+#|   - All projects, selected for funding or not selected for funding (in any funding component) {#tbl-funded}
+balance_cols <- c("cost", "award_req", "any_bike_improv", "bike_lanes", 
+                  "bike_intersect", "any_ped_improv", "sidewalk", "ped_intersect", 
+                  "ped_curbcut", "any_veh_calming")
+balance_col_names <- c("Project Cost ($1000)", "ATP Award Requested ($1000)", "Any Bike Improvements",
+                       "Lane-Feet of Bike Lane Added", "Improves Intersections/Crossing for Bikes",
+                       "Any Pedestrian Improvements", "Improves or Adds Sidewalks", 
+                       "Improves Intersections/Crossings for Pedestrians", 
+                       "Adds Curbcuts or Accessibility Improvements",
+                       "Any Vehicle Traffic Calming Improvements")
+
+balance_table <- function(data, cols, col_names, treatment_var, 
+                          group_names=c("Below Cutoff", "Above Cutoff")) {
+  bal_means_full <- data[, lapply(.SD, mean), keyby=treatment_var, .SDcols=cols]
+  treatment_var_vector <- data[, ..treatment_var][[1]]
+  full_bal_t_tests <- data[, lapply(.SD, function(X) t.test(X ~ treatment_var_vector)$statistic), 
+                           .SDcols=balance_cols]
+  full_bal <- data.frame(merge(as.data.frame(t(bal_means_full)), as.data.frame(t(full_bal_t_tests)), 
+                               by="row.names", all=TRUE),
+                         row.names = "Row.names")
+  colnames(full_bal) <- c(group_names, "t-statistic")
+  full_bal <- full_bal[row.names(full_bal) != "funded_statewide", ][cols, ]
+  
+  countrow <- data.frame(t(data[, .N, keyby=treatment_var]), `t-statistic`=NA)["N", ]
+  colnames(countrow) <- c(group_names, "t-statistic")
+  rownames(full_bal) <- col_names
+  return(rbind(round(full_bal, 3), countrow))
+}
+
+balance_table(atp, balance_cols, balance_col_names, "funded_statewide")
+balance_table(atp[abs(score_norm) <= 2.75], balance_cols, balance_col_names, "funded_statewide")
+balance_table(atp, balance_cols, balance_col_names, "funded", c("Unfunded", "Funded"))
+```
+
+As I get additional data on projects, as well as spatially merge baseline outcome and demographic data, I will expand this comparison of covariates, and also generate additional plots of covariates over the running variable across the funding threshold, to detect discontinuities in the covariates, again a sign of manipulation or selection into treatment. Covariates should vary continuously across the treatment threshold. I intend to pair these graphs with a joint test of the impact of the threshold on the covariates, using a Seemingly Unrelated Regression (SUR) and $\chi^2$ test [@lee2010 section 4.4.2], and may also pursue placebo tests, in accordance with @imbens2008.
+
+@fig-treatment-prob shows the probability of receiving funding against the normalized running variable across the statewide funding threshold, separately for each funding cycle, as well as all projects pooled together. Because projects receive funding in both the statewide component and the regional component, projects below the statewide funding threshold still receive funding. Unsurprisingly, however, there is still a sizeable jump in funding probability at the statewide threshold, where it jumps to 100%[^unfunded]. In this research design, receiving funding is the instrument, or intention to treat. 
+
+[^unfunded]: There is one project in the data whose score was above the statewide funding threshold, but was not recorded as receiving funding. I suspect this discrepancy represents a data issue rather than a project that truly was denied funding, and am working with ATP Staff to confirm the status of this project. 
+
+```{r}
+#| label: fig-treatment-prob
+#| fig-cap: Funding probability by normalized score, with cubic polynomial fit.
+#| echo: false
+#| warning: false
+treatment_prob_plot <- function(scores_norm, treated, title) {
+  treatment_plot <- rdplot(treated, scores_norm, p=3, binselect="qspr", hide=TRUE,
+                           x.label="Statewide Score (normalized)", 
+                           y.label="Funding Probability",
+                           title=title)
+  return(treatment_plot$rdplot)
+}
+
+round_treatment_prob <- lapply(atp[, sort(unique(Project.Cycle))], 
+                               function(i) atp[Project.Cycle == i, 
+                                               treatment_prob_plot(score_norm, funded, 
+                                                                   paste("Cycle", i))])
+
+grid.arrange(atp[, treatment_prob_plot(score_norm, funded, "Pooled")], round_treatment_prob[[1]],
+             round_treatment_prob[[2]], round_treatment_prob[[3]], ncol=2)
+```
+
+Once I have complete data on project construction status, I will be able to create graphs of _treatment_ probability along the running variable, where the treatment is the construction of an actual project. Because this research design is a fuzzy RD, there will still be some nonzero probability of treatment below the threshold, and units above the threshold may have treatment probability below 1. These graphs will show the magnitude in the jump in treatment probability across the threshold.
+
+## Intended Specification and Estimation
+
+Finally, I will present my main outcome plots, graphing the outcome variable(s) along the running variable, across the treatment threshold. These binned scatter plots will be accompanied by a quadratic fit polynomial on either side of the threshold (leaving out higher order terms, per @gelman2019). These plots should demonstrate the treatment effect (or lack thereof) of streetscape improvements on the outcome variables of interest.
 
 For my econometric approach, there are several considerations I will need to make. I will consider a few regression specifications to ensure robustness, including parametric (with only linear and quadratic terms, per @gelman2019) and nonparametric approaches. Either specification will employ a full set of interactions with the treatment, to ensure the regressions are separate on each side of the discontinuity. For local linear regression, the choice of bandwidth will be carried out similarly as to the graphical bandwidth: using the cross-validation approach developed by @ludwig2007, and inspecting the graphs for the degree of curvature. Outcomes with greater curvature are more likely to be sensitive to bias due to a larger bandwidth. Finally, I will also consider the results of @calonico2020 for additional guidance on optimal bandwidth selection. Because this Fuzzy RD setting is an instrumental variables approach, I will choose the optimal bandwidth for the outcome equation, and then use the same bandwidth for the first stage. In either case, I will pursue robustness tests to evaluate sensitivity of the results to the chosen specification.
 
