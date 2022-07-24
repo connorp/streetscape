@@ -8,7 +8,7 @@ output:
     fig_caption: yes
     number_sections: yes
     df_print: !expr pander::pander
-  bookdown::html_document2:
+  html_document:
     fig_caption: yes
     number_sections: yes
     highlight: textmate
@@ -16,7 +16,7 @@ output:
     toc_depth: 2
     toc_float: yes
     df_print: !expr pander::pander
-  bookdown::pdf_document2:
+  pdf_document:
     fig_caption: yes
     toc: yes
     number_sections: yes
@@ -40,7 +40,7 @@ library(knitr)
 library(pander)
 library(rmarkdown)
 library(grateful)
-library(SafeGraphR)
+# library(SafeGraphR)
 library(data.table)
 options(knitr.kable.NA = '')
 panderOptions("digits", 3)

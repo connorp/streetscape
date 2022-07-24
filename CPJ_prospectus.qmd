@@ -28,9 +28,20 @@ library(rddensity)
 library(ggplot2)
 library(gridExtra)
 library(knitr)
+library(quarto)
 library(english)
+library(grateful)
 source("atp_data.R")
 options(knitr.kable.NA = '')
+```
+
+```{r}
+#| label: citations
+#| echo: false
+#| warning: false
+citerefs <- cite_packages(output = "citekeys", include.RStudio = TRUE, 
+                          cite.tidyverse = TRUE)
+nocite_references(citerefs, citation_processor = 'pandoc')
 ```
 
 
@@ -197,7 +208,7 @@ The main threat to identification in an RD design is systematic differences betw
 #| label: fig-density-histograms
 #| fig-cap: Running variable (score) density histograms with estimated quadratic polynomial fits on either side of the threshold. Pictured separately for each funding cycle, as well as pooled. The scores are normalized to the cutoff at 0. 
 #| echo: false
-#| fig-height: 6
+#| fig-height: 5
 # quadratic polynomial approximated density estimator
 # cubic polynomial approximated bias-corrected density estimator (for CIs)
 # triangular kernel
@@ -310,7 +321,7 @@ Finally, we consider treatment probability in both the first and second stage. @
 ```{r}
 #| label: fig-treatment-prob
 #| fig-cap: Funding probability by normalized score, with cubic polynomial fit.
-#| fig-height: 6
+#| fig-height: 5
 #| echo: false
 #| warning: false
 treatment_prob_plot <- function(scores_norm, treated, title) {
