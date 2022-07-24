@@ -10,9 +10,6 @@ format:
     toc: true
     toc-depth: 1
 linestretch: 1.5
-link-citations: true
-reference-section-title: References
-pdfa: 2a
 abstract: |
   Streetscape design is an important determinant of the spatial equilibrium in urban areas. Projects that reallocate street space between users create winners and losers, and understanding the impacts of these projects, who bears the costs and benefits, and how they lead to spatial resorting is an important policy question as cities pursue these projects. This project uses a discontinuity in funding awards from the California Active Transportation Program to provide quasi-random variation in the installation of bike lanes, and the removal of vehicle travel lanes and on-street parking. Using this variation, I will estimate the impacts of these treatments on traffic throughput and speeds, visitation to adjacent businesses, crashes, and fatalities. 
 ---
@@ -207,6 +204,7 @@ The main threat to identification in an RD design is systematic differences betw
 ```{r}
 #| label: fig-density-histograms
 #| fig-cap: Running variable (score) density histograms with estimated quadratic polynomial fits on either side of the threshold. Pictured separately for each funding cycle, as well as pooled. The scores are normalized to the cutoff at 0. 
+#| fig-scap: Running variable density histograms
 #| echo: false
 #| fig-height: 5
 # quadratic polynomial approximated density estimator
@@ -321,6 +319,7 @@ Finally, we consider treatment probability in both the first and second stage. @
 ```{r}
 #| label: fig-treatment-prob
 #| fig-cap: Funding probability by normalized score, with cubic polynomial fit.
+#| fig-scap: Funding probability by running variable
 #| fig-height: 5
 #| echo: false
 #| warning: false

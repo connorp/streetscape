@@ -10,12 +10,15 @@ df-print: kable
 number-sections: true
 linkcolor: blue
 urlcolor: blue
+pdfa: 2a
 
 cite-method: citeproc
 bibliography: ["/Users/connor/Zotero/My_Library.json", "grateful-refs.bib"]
 biblio-title: References
+reference-section-title: References
 biblio-style: authoryear
 biblatexoptions: "isbn=false, url=false"
+link-citations: true
 
 format:
   pdf: default
