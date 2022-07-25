@@ -3,6 +3,7 @@ project:
   execute-dir: project
   render:
     - CPJ_prospectus.qmd
+    - streetscape_slides.qmd
 
 date-format: "MMM DD, YYYY HH:mm:ss z"
 lang: en
