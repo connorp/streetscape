@@ -3,18 +3,29 @@ title: Streetscape Changes and Infrastructure Equity
 author: Connor P. Jackson
 date: August 1, 2022
 lang: en
-format: pptx
+format: 
+  pptx:
+    number-sections: false
 linkcolor: blue
 urlcolor: blue
 link-citations: true
 ---
 
+```{r}
+#| label: setup
+#| include: false
+library(knitr)
+library(gridExtra)
+source("atp_data.R")
+source("rd_functions.R")
+options(knitr.kable.NA = '')
+```
+
 # Introduction
 
 ## Motivation: Spatial Equilibrium and the Urban Environment
 
-<!-- ![Three bicyclists enjoying a new parking protected bike lane on Telegraph Avenue](slide_images/bikelane.jpg) -->
-
+![Three bicyclists enjoying a new parking protected bike lane on Telegraph Avenue](slide_images/bikelane.jpg)
 Image Source: [Bike East Bay](https://catsip.berkeley.edu/safety-stories/stories-field/daves-safety-story-lessons-oakland)
 
 ::: notes
@@ -76,11 +87,6 @@ _Identification:_ RD using state funding awards at budget threshold
 :::
 ::::
 
-- Funds infrastructure projects that encourage walking, biking, etc.
-- Assigns projects a score based on fixed criteria
-- Rank orders projects by score
-- Awards full funding to projects until program funding is exhausted
-
 ::: notes
 In general, these projects are designed and implemented by localities, but often receive state funding. One such funding program in California that I will be using is the Active Transportation Program.
 
@@ -105,13 +111,20 @@ Unlike automobile projects, which are primarily funded by state governments rece
 
 ## ATP Project Data
 
-[Project attributes page]
-
 - Location
 - Attributes 
 - Timeline
 - Baseline use data
 - _Scores_ (running variables)
+
+## ATP Project Data
+
+```{r}
+#| label: tbl-atp-sample
+atp_summary_out <- as.data.frame(t(atp_summary))
+colnames(atp_summary_out) <- paste("Cycle", atp_summary_out["Project.Cycle", ])
+round(atp_summary_out[row.names(atp_summary_out) != "Project.Cycle", ], 3)
+```
 
 ## Example Project: Oakland, 14th Street
 
@@ -123,7 +136,7 @@ Unlike automobile projects, which are primarily funded by state governments rece
 
 ## Map of Project Area
 
-<!-- ![14th Street Bike lane project map, from Interstate 980 to Oak Street](slide_images/14th st map.pdf) -->
+![14th Street Bike lane project map, from Interstate 980 to Oak Street](slide_images/14th st map.pdf)
 
 # Research Plan
 
@@ -143,10 +156,6 @@ Unlike automobile projects, which are primarily funded by state governments rece
 - Projects may be built anyway: Fuzzy RD
 - Rich baseline data: differences in discontinuities
 
-<!-- How to handle spillovers? -->
-
-<!-- complement vs substitute roads (parallel vs perpendicular)? -->
-
 ::: notes
 As I mentioned before, the Active Transportation Program's rank ordering of projects and budget threshold allow me to use a regression discontinuity design at the threshold score for funding. Because cities could pursue other funding to build the project even if not approved by the ATP, and sometimes funded projects end up being cancelled, I will need to use a Fuzzy RD approach. 
 
@@ -155,13 +164,51 @@ That being said, I also have fairly rich baseline data, both from the applicatio
 
 ## Manipulation
 
+```{r}
+#| label: fig-density-histograms
+#| echo: false
+round_density <- lapply(atp[, sort(unique(Project.Cycle))], 
+                        function(i) density_tests(atp[(!is.na(score_norm) & 
+                                                         Project.Cycle == i), score_norm], 
+                                                  paste("Cycle", i)))
+pooled_density <- density_tests(atp[!is.na(score_norm), score_norm], "Pooled")
 
+grid.arrange(get_plot(pooled_density), get_plot(round_density[[1]]),
+             get_plot(round_density[[2]]), get_plot(round_density[[3]]), ncol=2)
+```
 
 ## Attribute Balance
 
+```{r}
+#| label: tbl-balance-tables
+#| echo: false
+binomial_test_windows <- rbind(bino_tests(pooled_density), 
+                               rbindlist(lapply(round_density, bino_tests)))
+balance_windows <- binomial_test_windows[pval > 0.05, .(window=max(window_halfwidth)), 
+                                         by=.(round)]
 
+statewide_bal <- balance_table(atp, balance_cols, balance_col_names, "funded_statewide")
+# Use the window selected above for the pooled data (2.75)
+window_bal <- balance_table(atp[abs(score_norm) <= balance_windows[round == "Pooled", window]], 
+              balance_cols, balance_col_names, "funded_statewide")
+funded_bal <- balance_table(atp, balance_cols, balance_col_names, "funded", c("Unfunded", "Funded"))
+cbind(cbind(statewide_bal, window_bal), funded_bal)
+```
 
 ## Funding Probability
+
+```{r}
+#| label: fig-treatment-prob
+#| echo: false
+#| warning: false
+round_treatment_prob <- lapply(atp[, sort(unique(Project.Cycle))], 
+                               function(i) atp[Project.Cycle == i, 
+                                               treatment_prob_plot(score_norm, funded, 
+                                                                   paste("Cycle", i))])
+
+grid.arrange(atp[, treatment_prob_plot(score_norm, funded, "Pooled")], round_treatment_prob[[1]],
+             round_treatment_prob[[2]], round_treatment_prob[[3]], ncol=2)
+```
 
 ## Future Directions
 
@@ -172,3 +219,17 @@ That being said, I also have fairly rich baseline data, both from the applicatio
 ::: notes
 So that's where I'm at right now. Once I get my hands on the projects data and work through these initial questions, I'll be expanding my focus to spillovers in nearby areas (potentially looking at complementary vs substitute streets), then onto the later steps in the logic chain.
 :::
+
+## Other Research
+
+- Housing supply spillovers with submarkets
+- Proposition 13 structural model
+  - move to debt financing, changes in municipal tax revenue sources, services
+  - response to budget crises: illiquid assets vs liquid services
+  - impact on housing approvals, land use decisions (construct the tax gap between land uses)
+  - distributional impacts
+- Disasters
+- Impacts of rent control 
+  - redevelopment (selection vs more, Diamond and McQuade)
+  - insurance value given liquidity constraints, value of stability
+- Ag + …
