@@ -222,3 +222,32 @@ atp[(score == sur_thresholds[as.character(Project.Cycle)] & mpo == "small_urban_
 
 # Create normalized statewide scores
 atp[, score_norm := score - statewide_thresholds[as.character(Project.Cycle)]]
+
+## ---- summary-table ----
+
+atp_summary <- atp[,.(`Projects Submitted` = .N,
+                      `Projects Funded` = sum(funded),
+                      `Average Project Cost ($1000)` = mean(cost),
+                      `Average Award Requested ($1000)` = mean(award_req),
+                      `Any Bike Improvements` = mean(any_bike_improv),
+                      `Adds Bike Lanes` = mean(bike_lanes > 0), 
+                      `Improves Intersections/Crossing for Bikes` = mean(bike_intersect),
+                      `Expands Bikeshare` = mean(bikeshare), 
+                      `Adds Bike Parking` = mean(bike_parking),
+                      `Any Pedestrian Improvements` = mean(any_ped_improv),
+                      `Improves or Adds Sidewalks` = mean(sidewalk > 0),
+                      `Improves Intersections/Crossings for Pedestrians` = mean(ped_intersect),
+                      `Adds Curbcuts or Accessibility Improvements` = mean(ped_curbcut),
+                      `Bike and Pedestrian Improvements` = mean(any_bike_improv * any_ped_improv),
+                      `Any Vehicle Traffic Calming Improvements` = mean(any_veh_calming),
+                      `Removed General Travel Lane` = mean(V.Remove.Travel.Ln > 0)), 
+                   keyby = .(Project.Cycle)]
+
+bikelanes_sum <- atp[bike_lanes > 0, .(`Projects Submitted` = .N,
+                                       `Total Length (lane-feet)` = round(mean(B.Class.1 + B.Class.2 + 
+                                                                                 B.Class.3 + B.Class.4), 0),
+                                       `Adds Class I Trail` = round(mean(B.Class.1 > 0), 3),
+                                       `Adds Class II Lanes` = round(mean(B.Class.2 > 0), 3),
+                                       `Adds Class III Route (Sharrows)` = round(mean(B.Class.3 > 0), 3),
+                                       `Adds Class IV Cycletrack` = round(mean(B.Class.4 > 0), 3)),
+                     keyby = .(Project.Cycle)]
