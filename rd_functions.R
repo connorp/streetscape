@@ -46,7 +46,7 @@ balance_cols <- c("cost", "award_req", "any_bike_improv", "bike_lanes",
                   "ped_curbcut", "any_veh_calming")
 balance_col_names <- c("Project Cost ($1000)", "ATP Award Requested ($1000)", "Any Bike Improvements",
                        "Lane-Feet of Bike Lane Added", "Improves Intersections/Crossing for Bikes",
-                       "Any Pedestrian Improvements", "Improves or Adds Sidewalks", 
+                       "Any Pedestrian Improvements", "Feet of Sidewalk Added/Improved", 
                        "Improves Intersections/Crossings for Pedestrians", 
                        "Adds Curbcuts or Accessibility Improvements",
                        "Any Vehicle Traffic Calming Improvements")
