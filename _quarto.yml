@@ -5,6 +5,7 @@ project:
     - CPJ_prospectus.qmd
     - streetscape_slides.qmd
 
+date: now
 date-format: "MMM DD, YYYY HH:mm:ss z"
 lang: en
 df-print: kable
