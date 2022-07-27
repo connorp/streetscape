@@ -41,21 +41,27 @@ bino_tests <- function(dens_obj) {
 
 ## ---- balance-tables ----
 
-balance_cols <- c("cost", "award_req", "any_bike_improv", "bike_lanes", 
+balance_cols <- c("funded", "cost", "award_req", "any_bike_improv", "bike_lanes", 
                   "bike_intersect", "any_ped_improv", "sidewalk", "ped_intersect", 
                   "ped_curbcut", "any_veh_calming")
-balance_col_names <- c("Project Cost ($1000)", "ATP Award Requested ($1000)", "Any Bike Improvements",
+balance_col_names <- c("Percent of Projects Funded", "Project Cost ($1000)", 
+                       "ATP Award Requested ($1000)", "Any Bike Improvements",
                        "Lane-Feet of Bike Lane Added", "Improves Intersections/Crossing for Bikes",
                        "Any Pedestrian Improvements", "Feet of Sidewalk Added/Improved", 
                        "Improves Intersections/Crossings for Pedestrians", 
                        "Adds Curbcuts or Accessibility Improvements",
                        "Any Vehicle Traffic Calming Improvements")
 
+safe_t_test <- function(X, treatment) {
+  # if t.test throws an error, return NA
+  return(tryCatch(t.test(X ~ treatment)$statistic, error=function(e) NA))
+}
+
 balance_table <- function(data, cols, col_names, treatment_var, 
                           group_names=c("Below Cutoff", "Above Cutoff")) {
   bal_means_full <- data[, lapply(.SD, mean), keyby=treatment_var, .SDcols=cols]
   treatment_var_vector <- data[, ..treatment_var][[1]]
-  full_bal_t_tests <- data[, lapply(.SD, function(X) t.test(X ~ treatment_var_vector)$statistic), 
+  full_bal_t_tests <- data[, lapply(.SD, safe_t_test, treatment=treatment_var_vector), 
                            .SDcols=balance_cols]
   full_bal <- data.frame(merge(as.data.frame(t(bal_means_full)), as.data.frame(t(full_bal_t_tests)), 
                                by="row.names", all=TRUE),

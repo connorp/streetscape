@@ -233,3 +233,17 @@ So that's where I'm at right now. Once I get my hands on the projects data and w
   - redevelopment (selection vs more, Diamond and McQuade)
   - insurance value given liquidity constraints, value of stability
 - Ag + …
+
+## Distribution of Funding Requests
+
+```{r}
+#| echo: false
+#| fig-width: 7
+hist(atp$award_req, breaks=20, xlab="Funding Requested ($1000)", col="dodgerblue",
+     main="All Projects")
+
+hist(atp[award_req < 10000, award_req], breaks=20, xlab="Funding Requested ($1000)", 
+     col="orange", main="Requesting Less Than $10 Million", ylab = "")
+```
+
+
