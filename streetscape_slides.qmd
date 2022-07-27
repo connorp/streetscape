@@ -52,7 +52,7 @@ Low income and minority communities have experienced decades of neglect at the h
 
 ---
 
-Goal: structural contribution, informed by reduced-form results
+Goal: policy relevant structural contribution, informed by reduced-form results
 
 Today: reduced-form approach
 
@@ -210,6 +210,13 @@ grid.arrange(atp[, treatment_prob_plot(score_norm, funded, "Pooled")], round_tre
              round_treatment_prob[[2]], round_treatment_prob[[3]], ncol=2)
 ```
 
+## Next Steps
+
+- Get location data from CTC
+- Initial power calculations
+- Generate shapefiles for spatial matching
+- Decide on traffic data source
+
 ## Future Directions
 
 - Characterize spillovers on nearby areas
@@ -222,28 +229,26 @@ So that's where I'm at right now. Once I get my hands on the projects data and w
 
 ## Other Research
 
-- Housing supply spillovers with submarkets
-- Proposition 13 structural model
-  - move to debt financing, changes in municipal tax revenue sources, services
-  - response to budget crises: illiquid assets vs liquid services
-  - impact on housing approvals, land use decisions (construct the tax gap between land uses)
-  - distributional impacts
+- Housing supply spillovers by submarket
+- Impacts of property tax restrictions (Prop 13)
+  - Municipal budgeting
+  - land use decisions
+  - Distribution and equity
+- Insurance value of rent control
 - Disasters
-- Impacts of rent control 
-  - redevelopment (selection vs more, Diamond and McQuade)
-  - insurance value given liquidity constraints, value of stability
-- Ag + …
+- Agriculture and environment intersections
+
 
 ## Distribution of Funding Requests
 
 ```{r}
 #| echo: false
 #| fig-width: 7
-hist(atp$award_req, breaks=20, xlab="Funding Requested ($1000)", col="dodgerblue",
+hist(atp$award_req, breaks=20, xlab="Funding Requested ($1000)", col="dodgerblue3",
      main="All Projects")
 
 hist(atp[award_req < 10000, award_req], breaks=20, xlab="Funding Requested ($1000)", 
-     col="orange", main="Requesting Less Than $10 Million", ylab = "")
+     col="orangered1", main="Requesting Less Than $10 Million", ylab = "")
 ```
 
 
